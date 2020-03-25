@@ -320,7 +320,7 @@ class QMNPluginHelper {
 		{
 			$type_array[] = array(
 				'slug' => $type["slug"],
-				'name' => $type["name"]
+				'name' => __($type["name"], 'quiz-master-next')
 			);
 		}
 		return $type_array;

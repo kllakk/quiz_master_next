@@ -80,14 +80,13 @@ function qsm_options_questions_tab_content() {
 		<?php
 	}
 	?>
-	<h3>Questions</h3>
-	<p>Use this tab to create and modify the different pages of your quiz or survey as well as the questions on each page. Click "Create New Page" to get started! Need more information? Check out the <a href="https://quizandsurveymaster.com/docs/creating-quizzes-and-surveys/adding-and-editing-questions/" target="_blank">documentation for this tab!</a></p>
+	<h3><?= __('Questions', 'quiz-master-next') ?></h3>
 	<div class="question-controls">
 		<div>
-			<button class="new-page-button button">Create New Page</button>
-			<button class="save-page-button button-primary">Save Questions and Pages</button>
+			<button class="new-page-button button"><?= __('Create New Page', 'quiz-master-next') ?></button>
+			<button class="save-page-button button-primary"><?= __('Save Questions and Pages', 'quiz-master-next') ?></button>
 		</div>
-		<span>Total Questions: <span id="total-questions"></span></span>
+		<span><?= __('Total Questions', 'quiz-master-next') ?>: <span id="total-questions"></span></span>
 		<p class="search-box">
 			<label class="screen-reader-text" for="question_search">Search Questions:</label>
 			<input type="search" id="question_search" name="question_search" value="">
@@ -233,8 +232,8 @@ function qsm_options_questions_tab_content() {
 			<div class="page-header">
 				<div><span class="dashicons dashicons-move"></span></div>
 				<div class="page-header-buttons">
-					<a href="#" class="new-question-button button">Create New Question</a>
-					<a href="#" class="add-question-bank-button button">Add Question From Question Bank</a>
+					<a href="#" class="new-question-button button"><?= __('Create New Question', 'quiz-master-next') ?></a>
+					<a href="#" class="add-question-bank-button button"><?= __('Add Question From Question Bank', 'quiz-master-next') ?></a>
 				</div>
 				<div><a href="#" class="delete-page-button"><span class="dashicons dashicons-trash"></span></a></div>
 			</div>
