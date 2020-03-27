@@ -120,7 +120,7 @@ function qsm_options_questions_tab_content() {
 		<div class="qsm-popup__overlay" tabindex="-1" data-micromodal-close>
 			<div class="qsm-popup__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
 				<header class="qsm-popup__header">
-                                    <h2 class="qsm-popup__title" id="modal-1-title">Edit Question [ ID: <span id="edit-question-id"></span>  ]</h2>
+                                    <h2 class="qsm-popup__title" id="modal-1-title">Опросник [ ID: <span id="edit-question-id"></span>  ]</h2>
 					<a class="qsm-popup__close" aria-label="Close modal" data-micromodal-close></a>
 				</header>
 				<main class="qsm-popup__content" id="modal-1-content">
@@ -134,7 +134,9 @@ function qsm_options_questions_tab_content() {
 							}
 							?>
 						</select>
-                                                <a class="question_info_tag" target="_blank" href="https://quizandsurveymaster.com/docs/about-quiz-survey-master/question-types/"><?php _e('How to use this option?','quiz_master_next') ?></a>
+                        <!--
+                        <a class="question_info_tag" target="_blank" href="https://quizandsurveymaster.com/docs/about-quiz-survey-master/question-types/"><?php _e('How to use this option?','quiz_master_next') ?></a>
+                        -->
 					</div>
 					<p id="question_type_info"></p>
 					<div class="qsm-row">
@@ -150,12 +152,12 @@ function qsm_options_questions_tab_content() {
                                                 <label class="change-answer-editor-label">
                                                     <?php _e( 'Answers Type: ', 'quiz-master-next' ); ?>
                                                     <select id="change-answer-editor">
-                                                        <option value="text">Text Answers</option>
-                                                        <option value="rich">Rich Answers</option>
+                                                        <option value="text">Текст</option>
+                                                        <option value="rich">Разметка</option>
                                                     </select>
                                                 </label>                             
 					</div>
-                                        <p id="show-advanced-option">Show advance options &raquo;</p>
+                                        <p id="show-advanced-option">Дополнительные параметры &raquo;</p>
                                         <div class="advanced-content" style="display: none;">
                                             <div id="correct_answer_area" class="qsm-row">
 						<label><?php _e( 'Correct Answer Info', 'quiz-master-next' ); ?></label>
@@ -165,6 +167,7 @@ function qsm_options_questions_tab_content() {
                                                     <label><?php _e( 'Hint', 'quiz-master-next' ); ?></label>
                                                     <input type="text" name="hint" value="" id="hint"/>
                                             </div>
+                                            <!--
                                             <div id="comment_area" class="qsm-row">
                                                     <label><?php _e( 'Comment Field', 'quiz-master-next' ); ?></label>
                                                     <select name="comments" id="comments">
@@ -173,6 +176,7 @@ function qsm_options_questions_tab_content() {
                                                             <option value="1" selected="selected"><?php _e('None', 'quiz-master-next'); ?></option>
                                                     <select>
                                             </div>
+                                            -->
                                             <div id="required_area" class="qsm-row">
                                                     <label><?php _e( 'Required?', 'quiz-master-next' ); ?></label>
                                                     <select name="required" id="required">
@@ -180,6 +184,7 @@ function qsm_options_questions_tab_content() {
                                                             <option value="1"><?php _e( 'No', 'quiz-master-next' ); ?></option>
                                                     </select>
                                             </div>
+                                            <!--
                                             <div id="category_area" class="qsm-row">
                                                     <label><?php _e( 'Category', 'quiz-master-next' ); ?></label>
                                                     <div id="categories">
@@ -201,6 +206,7 @@ function qsm_options_questions_tab_content() {
                                                     <label><?php _e( 'Limit Multiple choice( Works for Multiple Response )', 'quiz-master-next' ); ?></label>
                                                     <input type="number" name="limit_multiple_response" value="" id="limit_multiple_response"/>
                                             </div>
+                                            -->
                                             <div id="file-upload-limit" class="qsm-row">
                                                     <label><?php _e( 'File upload limit ( in MB )', 'quiz-master-next' ); ?></label>
                                                     <input type="number" name="file_upload_limit" value="" id="file_upload_limit"/>
@@ -217,8 +223,8 @@ function qsm_options_questions_tab_content() {
                                         </div>					
 				</main>
 				<footer class="qsm-popup__footer">
-					<button id="save-popup-button" class="qsm-popup__btn qsm-popup__btn-primary">Save Question</button>
-					<button class="qsm-popup__btn" data-micromodal-close aria-label="Close this dialog window">Cancel</button>
+					<button id="save-popup-button" class="qsm-popup__btn qsm-popup__btn-primary"><?= __('Save Question', 'quiz-master-next') ?></button>
+					<button class="qsm-popup__btn" data-micromodal-close aria-label="Close this dialog window"><?= __('Cancel', 'quiz-master-next') ?></button>
 				</footer>
 			</div>
 		</div>
@@ -233,7 +239,9 @@ function qsm_options_questions_tab_content() {
 				<div><span class="dashicons dashicons-move"></span></div>
 				<div class="page-header-buttons">
 					<a href="#" class="new-question-button button"><?= __('Create New Question', 'quiz-master-next') ?></a>
+                    <!--
 					<a href="#" class="add-question-bank-button button"><?= __('Add Question From Question Bank', 'quiz-master-next') ?></a>
+					-->
 				</div>
 				<div><a href="#" class="delete-page-button"><span class="dashicons dashicons-trash"></span></a></div>
 			</div>
@@ -281,10 +289,10 @@ function qsm_options_questions_tab_content() {
                             <# if ( 'rich' == data.answerType ) { #>
                                 <textarea id="answer-{{data.question_id}}-{{data.count}}"></textarea>
                             <# } else { #>
-                                <input type="text" class="answer-text" value="{{data.answer}}" placeholder="Your answer"/>
+                                <input type="text" class="answer-text" value="{{data.answer}}" placeholder="Ваш ответ"/>
                             <# } #>                                                        
                         </div>
-			<div><input type="text" class="answer-points" value="{{data.points}}" placeholder="Points"/></div>
+			<div><input type="text" class="answer-points" value="{{data.points}}" placeholder="Баллы"/></div>
 			<div><input type="checkbox" class="answer-correct" value="1" <# if ( 1 == data.correct ) { #> checked="checked"/> <# } #></div>
 		</div>
 	</script>

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-03-25 15:28+0300\n"
-"PO-Revision-Date: 2020-03-25 15:35+0300\n"
+"PO-Revision-Date: 2020-03-27 13:11+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -553,7 +553,7 @@ msgstr "Добавить новый ответ!"
 
 #: php/admin/options-page-questions-tab.php:152
 msgid "Answers Type: "
-msgstr ""
+msgstr "Тип вопроса: "
 
 #: php/admin/options-page-questions-tab.php:162
 msgid "Correct Answer Info"
@@ -664,7 +664,7 @@ msgstr ""
 
 #: php/admin/options-page-questions-tab.php:236
 msgid "Create New Question"
-msgstr "Добавить страницу"
+msgstr "Добавить вопрос"
 
 #: php/admin/options-page-questions-tab.php:237
 msgid "Add Question From Question Bank"
@@ -1600,6 +1600,9 @@ msgstr ""
 
 msgid "Save Questions and Pages"
 msgstr "Сохранить страницы и вопросы"
+
+msgid "Save Question"
+msgstr "Сохранить вопрос"
 
 #~ msgid "Easily and quickly add quizzes and surveys to your website."
 #~ msgstr "Легко и быстро добавить  тесты и опросы на Ваш сайт."

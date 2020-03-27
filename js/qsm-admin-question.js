@@ -11,7 +11,7 @@ var import_button;
 				id: null,
 				quizID: 1,
 				type: '0',
-				name: 'Your new question!',
+				name: 'Ваш вопрос!',
 				answerInfo: '',
 				comments: '1',
 				hint: '',
@@ -609,9 +609,9 @@ var import_button;
                     var $this = $(this);
                     $(this).next('div.advanced-content').slideToggle('slow',function(){
                         if ($(this).is(':visible')) {
-                            $this.text('').html('Hide advance options &laquo;');                
+                            $this.text('').html('Свернуть &laquo;');
                         } else {
-                            $this.text('').html('Show advance options &raquo;');
+                            $this.text('').html('Дополнительные параметры &raquo;');
                         }  
                     });
                 });
