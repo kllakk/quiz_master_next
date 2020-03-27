@@ -60,7 +60,7 @@ class QSM_Install {
           'value' => 2
         )
       ),
-      'default' => 0
+      'default' => 2
     );
 	$mlwQuizMasterNext->pluginHelper->register_quiz_setting( $field_array, 'quiz_options' );
 	
@@ -79,7 +79,7 @@ class QSM_Install {
 			'value' => 0
 		  )
 		),
-		'default' => 0
+		'default' => 1
 	);
 	$mlwQuizMasterNext->pluginHelper->register_quiz_setting( $field_array, 'quiz_options' );
 

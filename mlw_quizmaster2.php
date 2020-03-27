@@ -185,10 +185,10 @@ class MLWQuizMasterNext {
 	 * @return void
 	 */
 	private function add_hooks() {
+		add_action( 'init', array( $this, 'language_init_action' ) );
 		add_action( 'admin_menu', array( $this, 'setup_admin_menu' ) );
 		add_action( 'admin_head', array( $this, 'admin_head' ), 900 );
 		add_action( 'init', array( $this, 'register_quiz_post_types' ) );
-		add_action( 'init', array( $this, 'language_init_action' ) );
 	}
 
 	function language_init_action() {
