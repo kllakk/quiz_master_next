@@ -63,7 +63,7 @@ function qsm_generate_quiz_options() {
 	<div class="wrap">            
 		<div class='mlw_quiz_options'>
                     <h1 style="display: inline-block;"><?php echo $quiz_name; ?></h1>
-                    <a style="display: inline-block;margin-top: 10px;margin-bottom: 15px;margin-left: 10px;" hre="#" class="edit-quiz-name button button-primary">Edit Name</a>
+                    <a style="display: inline-block;margin-top: 10px;margin-bottom: 15px;margin-left: 10px;" hre="#" class="edit-quiz-name button button-primary"><?= __('Edit Name', 'quiz-master-next') ?></a>
                     <?php
                     // Get quiz post based on quiz id
                     $args = array(
@@ -154,7 +154,7 @@ function qsm_generate_quiz_options() {
                     <div class="qsm-popup__overlay" tabindex="-1" data-micromodal-close="">
                         <div class="qsm-popup__container" role="dialog" aria-modal="true" aria-labelledby="modal-3-title">
                             <header class="qsm-popup__header">
-                                    <h2 class="qsm-popup__title" id="modal-3-title">Edit Name</h2>
+                                    <h2 class="qsm-popup__title" id="modal-3-title"><?= __('Edit Name', 'quiz-master-next') ?></h2>
                                     <a class="qsm-popup__close" aria-label="Close modal" data-micromodal-close=""></a>
                             </header>
                             <main class="qsm-popup__content" id="modal-3-content">
@@ -166,8 +166,8 @@ function qsm_generate_quiz_options() {
                                     </form>
                             </main>
                             <footer class="qsm-popup__footer">
-                                    <button id="edit-name-button" class="qsm-popup__btn qsm-popup__btn-primary">Edit</button>
-                                    <button class="qsm-popup__btn" data-micromodal-close="" aria-label="Close this dialog window">Cancel</button>
+                                    <button id="edit-name-button" class="qsm-popup__btn qsm-popup__btn-primary"><?= __('Edit', 'quiz-master-next') ?></button>
+                                    <button class="qsm-popup__btn" data-micromodal-close="" aria-label="Close this dialog window"><?= __('Cancel', 'quiz-master-next') ?></button>
                             </footer>
                         </div>
                     </div>

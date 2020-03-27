@@ -723,12 +723,12 @@ class QMNQuizManager {
         <!-- View for pagination -->
         <script type="text/template" id="tmpl-qsm-pagination">
             <div class="qsm-pagination qmn_pagination border margin-bottom">
-            <a class="qsm-btn qsm-previous qmn_btn mlw_qmn_quiz_link mlw_previous" href="#"><?php echo esc_html($options->previous_button_text); ?></a>
+            <a class="qsm-btn qsm-previous qmn_btn mlw_qmn_quiz_link mlw_previous" href="#"><?php echo esc_html(__($options->previous_button_text, 'quiz-master-next')); ?></a>
             <span class="qmn_page_message"></span>
             <div class="qmn_page_counter_message"></div>
             <div id="qsm-progress-bar" style="display:none;"></div>
-            <a class="qsm-btn qsm-next qmn_btn mlw_qmn_quiz_link mlw_next" href="#"><?php echo esc_html($options->next_button_text); ?></a>
-            <input type='submit' class='qsm-btn qsm-submit-btn qmn_btn' value='<?php echo esc_attr(htmlspecialchars_decode($options->submit_button_text, ENT_QUOTES)); ?>' />
+            <a class="qsm-btn qsm-next qmn_btn mlw_qmn_quiz_link mlw_next" href="#"><?php echo esc_html(__($options->next_button_text, 'quiz-master-next')); ?></a>
+            <input type='submit' class='qsm-btn qsm-submit-btn qmn_btn' value='<?php echo esc_attr(htmlspecialchars_decode(__($options->submit_button_text, 'quiz-master-next'), ENT_QUOTES)); ?>' />
             </div>
         </script>
         <input type='hidden' name='qmn_question_list' value='<?php echo esc_attr($question_list); ?>' />

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-03-25 15:28+0300\n"
-"PO-Revision-Date: 2020-03-27 13:11+0300\n"
+"PO-Revision-Date: 2020-03-27 13:42+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -1414,6 +1414,9 @@ msgstr "Назад"
 msgid "Next"
 msgstr "Далее"
 
+msgid "Submit"
+msgstr "Отправить"
+
 #: php/classes/class-qsm-tracking.php:195
 msgid "Allow Quiz And Survey Master to track this plugin's usage and help us make this plugin better?"
 msgstr ""
@@ -1603,6 +1606,9 @@ msgstr "Сохранить страницы и вопросы"
 
 msgid "Save Question"
 msgstr "Сохранить вопрос"
+
+msgid "Edit Name"
+msgstr "Редактировать наименование"
 
 #~ msgid "Easily and quickly add quizzes and surveys to your website."
 #~ msgstr "Легко и быстро добавить  тесты и опросы на Ваш сайт."
