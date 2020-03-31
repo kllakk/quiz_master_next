@@ -167,7 +167,9 @@ function qsm_options_questions_tab_content() {
                                                     <label><?php _e( 'Hint', 'quiz-master-next' ); ?></label>
                                                     <input type="text" name="hint" value="" id="hint"/>
                                             </div>
-                                            <!--
+
+
+
                                             <div id="comment_area" class="qsm-row">
                                                     <label><?php _e( 'Comment Field', 'quiz-master-next' ); ?></label>
                                                     <select name="comments" id="comments">
@@ -176,7 +178,9 @@ function qsm_options_questions_tab_content() {
                                                             <option value="1" selected="selected"><?php _e('None', 'quiz-master-next'); ?></option>
                                                     <select>
                                             </div>
-                                            -->
+
+
+
                                             <div id="required_area" class="qsm-row">
                                                     <label><?php _e( 'Required?', 'quiz-master-next' ); ?></label>
                                                     <select name="required" id="required">
@@ -184,20 +188,24 @@ function qsm_options_questions_tab_content() {
                                                             <option value="1"><?php _e( 'No', 'quiz-master-next' ); ?></option>
                                                     </select>
                                             </div>
-                                            <!--
-                                            <div id="category_area" class="qsm-row">
+
+
+
+                                            <div id="category_area" class="qsm-row" style="display: none">
                                                     <label><?php _e( 'Category', 'quiz-master-next' ); ?></label>
                                                     <div id="categories">
                                                             <input type="radio" name="category" class="category-radio" id="new_category_new" value="new_category"><label for="new_category_new">New: <input type='text' id='new_category' value='' /></label>
                                                     </div>
                                             </div>
+
                                             <div id="required_area" class="qsm-row">
                                                     <label><?php _e( 'Hide Autofill?', 'quiz-master-next' ); ?></label>
                                                     <select name="hide_autofill" id="hide_autofill">
-                                                            <option value="0" selected="selected"><?php _e( 'No', 'quiz-master-next' ); ?></option>
-                                                            <option value="1"><?php _e( 'Yes', 'quiz-master-next' ); ?></option>
+                                                            <option value="0"><?php _e( 'No', 'quiz-master-next' ); ?></option>
+                                                            <option value="1" selected><?php _e( 'Yes', 'quiz-master-next' ); ?></option>
                                                     </select>
                                             </div>
+
                                             <div id="required_area" class="qsm-row">
                                                     <label><?php _e( 'Limit Text( Works for text fields )', 'quiz-master-next' ); ?></label>
                                                     <input type="number" name="limit_text" value="" id="limit_text"/>
@@ -206,7 +214,9 @@ function qsm_options_questions_tab_content() {
                                                     <label><?php _e( 'Limit Multiple choice( Works for Multiple Response )', 'quiz-master-next' ); ?></label>
                                                     <input type="number" name="limit_multiple_response" value="" id="limit_multiple_response"/>
                                             </div>
-                                            -->
+
+
+
                                             <div id="file-upload-limit" class="qsm-row">
                                                     <label><?php _e( 'File upload limit ( in MB )', 'quiz-master-next' ); ?></label>
                                                     <input type="number" name="file_upload_limit" value="" id="file_upload_limit"/>

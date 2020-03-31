@@ -1,11 +1,9 @@
 <?php
 /**
- * Plugin Name: Quiz And Survey Master
- * Description: Easily and quickly add quizzes and surveys to your website.
+ * Plugin Name: Опросник
+ * Description: Создан на базе Quiz And Survey Master.
  * Version: 6.4.5
- * Author: ExpressTech
- * Author URI: https://quizandsurveymaster.com/
- * Plugin URI: https://expresstech.io/
+ * Author: Петров Сергей
  * Text Domain: quiz-master-next
  *
  * @author QSM Team
