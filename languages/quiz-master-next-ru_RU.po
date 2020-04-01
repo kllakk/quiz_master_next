@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-03-25 15:28+0300\n"
-"PO-Revision-Date: 2020-03-27 13:42+0300\n"
+"PO-Revision-Date: 2020-04-01 17:54+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -1535,7 +1535,7 @@ msgstr ""
 
 #: php/question-types.php:14
 msgid "Multiple Choice"
-msgstr "Множественный выбор"
+msgstr "Единичный выбор"
 
 #: php/question-types.php:26
 msgid "File Upload"
@@ -1563,7 +1563,7 @@ msgstr "Текст"
 
 #: php/question-types.php:517
 msgid "Multiple Response"
-msgstr "Выбор"
+msgstr "Множественный выбор"
 
 #: php/question-types.php:621
 msgid "Large Open Answer"
