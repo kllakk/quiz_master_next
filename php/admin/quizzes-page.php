@@ -256,7 +256,7 @@ function qsm_generate_quizzes_surveys_page() {
 			<?php
 			if ( 'true' == get_option( 'mlw_advert_shows' ) ) {
 				?>
-				<div class="qsm-news-ads">
+				<div class="qsm-news-ads" style="display: none">
 					<h3 class="qsm-news-ads-title"><?php esc_html_e( 'QSM News', 'quiz-master-next' ); ?></h3>
 <!--					<div class="qsm-info-widget">
 						<h3>Keep your WordPress site healthy and secure!</h3>
