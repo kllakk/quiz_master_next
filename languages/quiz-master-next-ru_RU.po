@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-03-25 15:28+0300\n"
-"PO-Revision-Date: 2020-04-02 11:25+0300\n"
+"PO-Revision-Date: 2020-04-02 14:21+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -665,6 +665,9 @@ msgstr ""
 #: php/admin/options-page-questions-tab.php:236
 msgid "Create New Question"
 msgstr "Добавить вопрос"
+
+msgid "Create New Condition"
+msgstr "Добавить условие"
 
 #: php/admin/options-page-questions-tab.php:237
 msgid "Add Question From Question Bank"
