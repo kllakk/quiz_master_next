@@ -144,6 +144,7 @@ class MLWQuizMasterNext {
 			include 'php/gdpr.php';
 		}
 		include 'php/classes/class-qsm-questions.php';
+		include 'php/classes/class-qsm-conditions.php';
 		include 'php/classes/class-qsm-contact-manager.php';
 		include 'php/classes/class-qsm-results-pages.php';
 		include 'php/classes/class-qsm-emails.php';

@@ -939,6 +939,7 @@ class QSM_Install {
 
   	$quiz_table_name = $wpdb->prefix . "mlw_quizzes";
   	$question_table_name = $wpdb->prefix . "mlw_questions";
+  	$condition_table_name = $wpdb->prefix . "mlw_conditions";
   	$results_table_name = $wpdb->prefix . "mlw_results";
   	$audit_table_name = $wpdb->prefix . "mlw_qm_audit_trail";
 
@@ -1040,6 +1041,29 @@ class QSM_Install {
   		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
   		dbDelta( $sql );
   	}
+
+
+    if( $wpdb->get_var( "SHOW TABLES LIKE '$condition_table_name'" ) != $condition_table_name ) {
+      $sql = "CREATE TABLE $condition_table_name (
+        condition_id mediumint(9) NOT NULL AUTO_INCREMENT,
+        question_id INT NOT NULL,
+        quiz_id INT NOT NULL,
+        question_related_id INT NOT NULL,
+        condition_order INT NOT NULL,
+        condition_type TEXT NOT NULL, -- == !== < > contains6begin end
+        condition_value TEXT NOT NULL,
+        condition_type_new TEXT NOT NULL,
+        condition_settings TEXT NOT NULL,
+        deleted INT NOT NULL,
+        PRIMARY KEY  (condition_id),
+        INDEX (question_id),
+        INDEX (quiz_id),
+        INDEX (question_related_id)
+    ) $charset_collate;";
+
+      require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+      dbDelta( $sql );
+    }
 
   	if( $wpdb->get_var( "SHOW TABLES LIKE '$results_table_name'" ) != $results_table_name ) {
   		$sql = "CREATE TABLE $results_table_name (
