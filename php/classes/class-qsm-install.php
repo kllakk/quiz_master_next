@@ -876,7 +876,7 @@ class QSM_Install {
       'id' => 'empty_error_text',
       'label' => __('Text for when user has not filled in all required fields', 'quiz-master-next'),
       'type' => 'text',
-      'default' => 'Please complete all required fields!'
+      'default' =>  __('Please complete all required fields!', 'quiz-master-next'),
     );
     $mlwQuizMasterNext->pluginHelper->register_quiz_setting( $field_array, 'quiz_text' );
 
