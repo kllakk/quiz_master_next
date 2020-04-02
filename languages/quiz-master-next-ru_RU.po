@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2020-03-25 15:28+0300\n"
-"PO-Revision-Date: 2020-04-01 17:54+0300\n"
+"PO-Revision-Date: 2020-04-02 11:25+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -1606,6 +1606,9 @@ msgstr "Сохранить страницы и вопросы"
 
 msgid "Save Question"
 msgstr "Сохранить вопрос"
+
+msgid "Save Conditions"
+msgstr "Сохранить условия"
 
 msgid "Edit Name"
 msgstr "Редактировать наименование"
