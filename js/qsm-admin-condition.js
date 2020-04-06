@@ -9,7 +9,8 @@ var QSMCondition;
             defaults: {
                 id: null,
                 quizID: 1,
-                questionID: 1
+                questionID: 1,
+                conditions: [],
             }
         }),
         conditions: null,
@@ -40,6 +41,19 @@ var QSMCondition;
             var questionText = QSMQuestion.prepareQuestionText( question.get( 'name' ) );
             $( '#conditions_question_id' ).val( questionID );
             $( "#conditions-question-id" ).text('').text(questionID);
+
+
+            $( '#conditions' ).empty();
+            var conditions = question.get( 'conditions' );
+
+            // var cl = 0;
+            // _.each( conditions, function( condition ) {
+            //     condition.push(cl + 1);
+            //     condition.push(questionID);
+            //     QSMQuestion.addNewAnswer( condition );
+            //     cl++;
+            // });
+
             MicroModal.show( 'modal-1010' );
         },
         createCondition: function(questionID) {
@@ -57,7 +71,18 @@ var QSMCondition;
             );
         },
         addNewCondition: function( condition ) {
-
+            var conditionTemplate = wp.template( 'single-condition' );
+            console.log(QSMQuestion.questions);
+            var question = QSMQuestion.questions.get( 1 );
+            console.log(question);
+            $( '#conditions' ).append( conditionTemplate( {
+                question_related_id: condition[0],
+                condition_type: condition[1],
+                condition_value: condition[2],
+                count: condition[3],
+                questions: QSMQuestion.questions.models,
+                types: qsmConditionSettings.types,
+                question_id: condition[4] }) );
         }
     };
 
@@ -78,8 +103,15 @@ var QSMCondition;
         });
         $( '#new-condition-button' ).on( 'click', function( event ) {
             event.preventDefault();
-            var questionID = $('#conditions_question_id').val();
-            QSMCondition.createCondition(questionID);
+            var condition_length = $( '#conditions' ).find('.conditions-single').length;
+            var question_id = $('#conditions_question_id').val();
+            //QSMCondition.createCondition(questionID);
+            var condition = [ '', '', '', condition_length, question_id ];
+            QSMCondition.addNewCondition( condition );
+        });
+        $( '#conditions' ).on( 'click', '.delete-condition-button', function( event ) {
+            event.preventDefault();
+            $( this ).parents( '.conditions-single' ).remove();
         });
     });
 }(jQuery));

@@ -48,7 +48,8 @@ function qsm_options_questions_tab_content() {
         'nonce'      => wp_create_nonce( 'wp_rest' ),
         'pages'      => $mlwQuizMasterNext->pluginHelper->get_quiz_setting( 'pages', array() ),
         'qsm_user_ve' => get_user_meta($user_id, 'rich_editing', true),
-        'saveNonce' => wp_create_nonce('ajax-nonce-sandy-page')
+        'saveNonce' => wp_create_nonce('ajax-nonce-sandy-page'),
+        'types' => QSM_Conditions::$types,
     );
 
 	// Scripts and styles.
@@ -262,6 +263,11 @@ function qsm_options_questions_tab_content() {
                 <main class="qsm-popup__content" id="modal-1010-content">
                     <input type="hidden" name="conditions_question_id" id="conditions_question_id" value="">
                     <div class="qsm-row">
+                        <div class="conditions" id="conditions">
+
+                        </div>
+                    </div>
+                    <div class="qsm-row">
                         <a href="#" id="new-condition-button" class="button"><?= __('Create New Condition', 'quiz-master-next') ?></a>
                     </div>
                 </main>
@@ -340,6 +346,38 @@ function qsm_options_questions_tab_content() {
 			<div><input type="checkbox" class="answer-correct" value="1" <# if ( 1 == data.correct ) { #> checked="checked"/> <# } #></div>
 		</div>
 	</script>
+
+    <!-- View for single answer -->
+    <script type="text/template" id="tmpl-single-condition">
+        <div class="conditions-single">
+            <h5>Условие 1</h5>
+            <div><a href="#" class="delete-condition-button"><span class="dashicons dashicons-trash"></span></a></div>
+            <p>
+                Показать, если в ответ на вопрос
+            </p>
+            <p>
+                <select id="question_related_id">
+                    <option>-- выберите вопрос --</option>
+                    <# _.each(data.questions, function(question){ #>
+                    <option value="{{question.id}}">{{question.attributes.name}}</option>
+                    <# }) #>
+                </select>
+            </p>
+            <p>
+                <select id="condition_type">
+                    <option>-- не выбрано --</option>
+                    <# _.each(data.types, function(name, value){ #>
+                    <option {{value == data.condition_type ? 'selected' : ''}} value="{{value}}">{{name}}</option>
+                    <# }) #>
+                </select>
+            </p>
+            <p>
+                <select id="condition_value">
+                    <option>-- не выбрано --</option>
+                </select>
+            </p>
+        </div>
+    </script>
 	<?php
 }
 

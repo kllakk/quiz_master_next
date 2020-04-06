@@ -11,6 +11,19 @@
  * @since 5.2.0
  */
 class QSM_Conditions {
+    
+    public static $types = [
+        'equal' => 'Равен',
+        'not-equal' => 'Не равен',
+        'greater' => 'Больше',
+        'less' => 'Меньше',
+        'greater-or-equal' => 'Больше или равен',
+        'less-or-equal' => 'Меньше или равен',
+        'contain' => 'Содержит',
+        'start' => 'Начинается с',
+        'end' => 'Заканчивается на',
+    ];
+    
 	/**
 	 * Creates a new question
 	 *
