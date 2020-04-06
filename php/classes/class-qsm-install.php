@@ -1045,20 +1045,12 @@ class QSM_Install {
 
     if( $wpdb->get_var( "SHOW TABLES LIKE '$condition_table_name'" ) != $condition_table_name ) {
       $sql = "CREATE TABLE $condition_table_name (
-        condition_id mediumint(9) NOT NULL AUTO_INCREMENT,
         question_id INT NOT NULL,
         quiz_id INT NOT NULL,
-        question_related_id INT NOT NULL,
-        condition_order INT NOT NULL,
-        condition_type TEXT NOT NULL, -- == !== < > contains6begin end
-        condition_value TEXT NOT NULL,
-        condition_type_new TEXT NOT NULL,
-        condition_settings TEXT NOT NULL,
+        condition_array TEXT NOT NULL,
         deleted INT NOT NULL,
-        PRIMARY KEY  (condition_id),
-        INDEX (question_id),
-        INDEX (quiz_id),
-        INDEX (question_related_id)
+        PRIMARY KEY  (question_id),
+        INDEX (quiz_id)
     ) $charset_collate;";
 
       require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );

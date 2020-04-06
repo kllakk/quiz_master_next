@@ -15,30 +15,59 @@ var QSMCondition;
         }),
         conditions: null,
         conditionCollection: null,
+        loadConditions: function(questionID) {
+            QSMAdmin.displayAlert( 'Loading conditions...', 'info' );
+            QSMCondition.conditions.fetch({
+                headers: { 'X-WP-Nonce': qsmConditionSettings.nonce },
+                data: {
+                    quizID: qsmConditionSettings.quizID,
+                    questionID: questionID,
+                },
+                success: QSMCondition.loadSuccess,
+                error: QSMAdmin.displayError
+            });
+        },
+        loadSuccess: function() {
+            console.log(QSMCondition.conditions);
+        },
         saveSuccess: function( model ) {
             QSMAdmin.displayAlert( 'Condition was saved!', 'success' );
         },
         saveConditions: function( questionID ) {
             QSMAdmin.displayAlert( 'Saving conditions...', 'info' );
 
+            var conditions = [];
+            var $conditions = jQuery( '.conditions-single');
+            _.each( $conditions, function( condition ) {
+                var $condition = jQuery( condition );
+                var relatedID = $condition.find( '.question_related_id' ).val();
+                var type = $condition.find( '.condition_type' ).val();
+                var value = $condition.find( '.condition_value' ).val();
+                console.log([ relatedID, type, value ]);
+                conditions.push( [ relatedID, type, value ] );
+            });
             var model = QSMCondition.conditions.get( questionID );
-            model.save(
-                {
-                    questionID: questionID,
-                },
-                {
-                    headers: { 'X-WP-Nonce': qsmConditionSettings.nonce },
-                    success: QSMCondition.saveSuccess,
-                    error: QSMAdmin.displayError,
-                    type: 'POST'
-                }
-            );
+            if (!model) {
+                QSMCondition.createCondition(questionID, conditions);
+            } else {
+                model.save(
+                    {
+                        quizID: qsmConditionSettings.quizID,
+                        questionID: questionID,
+                        conditions: conditions,
+                    },
+                    {
+                        headers: {'X-WP-Nonce': qsmConditionSettings.nonce},
+                        success: QSMCondition.saveSuccess,
+                        error: QSMAdmin.displayError,
+                        type: 'POST'
+                    }
+                );
+            }
             MicroModal.close('modal-1010');
         },
         openConditionsPopup: function( questionID ) {
             var question = QSMQuestion.questions.get( questionID );
-            var questions = QSMQuestion.questions;
-            var questionText = QSMQuestion.prepareQuestionText( question.get( 'name' ) );
             $( '#conditions_question_id' ).val( questionID );
             $( "#conditions-question-id" ).text('').text(questionID);
 
@@ -56,12 +85,13 @@ var QSMCondition;
 
             MicroModal.show( 'modal-1010' );
         },
-        createCondition: function(questionID) {
+        createCondition: function(questionID, conditions) {
             QSMAdmin.displayAlert( 'Creating condition...', 'info' );
             QSMCondition.conditions.create(
                 {
                     quizID: qsmConditionSettings.quizID,
                     questionID: questionID,
+                    conditions: conditions,
                 },
                 {
                     headers: { 'X-WP-Nonce': qsmConditionSettings.nonce },
@@ -107,7 +137,7 @@ var QSMCondition;
                 var question = _.first(filtered);
                 var answers = question.answers;
 
-                select.find("option[value]").remove();
+                select.find("option[value!='']").remove();
                 for (var i = 0; i < answers.length; i++) {
                     select.append('<option value=' + answers[i].value + '>' + answers[i].name + '</option>');
                 }
@@ -123,7 +153,9 @@ var QSMCondition;
         QSMCondition.conditions = new QSMCondition.conditionCollection();
         $( '.questions' ).on( 'click', '.edit-conditions-button', function( event ) {
             event.preventDefault();
-            QSMCondition.openConditionsPopup( $( this ).parents( '.question' ).data( 'question-id' ) );
+            var questionID = $( this ).parents( '.question' ).data( 'question-id' );
+            QSMCondition.loadConditions( questionID );
+            QSMCondition.openConditionsPopup( questionID );
         });
         $( '#save-conditions-popup-button' ).on( 'click', function( event ) {
             event.preventDefault();
@@ -134,7 +166,6 @@ var QSMCondition;
             event.preventDefault();
             var condition_length = $( '#conditions' ).find('.conditions-single').length;
             var question_id = $('#conditions_question_id').val();
-            //QSMCondition.createCondition(questionID);
             var condition = [ '', '', '', condition_length, question_id ];
             QSMCondition.addNewCondition( condition );
         });

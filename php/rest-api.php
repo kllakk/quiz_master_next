@@ -308,14 +308,17 @@ function qsm_rest_get_conditions( WP_REST_Request $request ) {
         $current_user = wp_get_current_user();
         if ( 0 !== $current_user ) {
             $quiz_id = isset( $request['quizID'] ) ? intval( $request['quizID'] ) : 0;
-            if ( 0 !== $quiz_id ) {
-                $conditions = QSM_Questions::load_questions_by_pages( $quiz_id );
-            } else {
-                $conditions = QSM_Questions::load_questions( 0 );
-            }
-            global $wpdb;
-            $quiz_table = $wpdb->prefix . 'mlw_quizzes';
+            $question_id = isset( $request['questionID'] ) ? intval( $request['questionID'] ) : 0;
+            $conditions = QSM_Conditions::load_conditions( $question_id, $quiz_id );
             $condition_array = array();
+            foreach ( $conditions as $condition ) {
+                $condition_array[] = [
+                    'id' => $condition['question_id'],
+                    'questionID' => $condition['question_id'],
+                    'quizID'     => $condition['quiz_id'],
+                    'conditions' => $condition['conditions'],
+                ];
+            }
             return $condition_array;
         }
     }
@@ -397,7 +400,14 @@ function qsm_rest_create_conditions( WP_REST_Request $request ) {
                     'quiz_id'     => $request['quizID'],
                     'question_id'  => $request['questionID'],
                 );
-                $condition_id = QSM_Conditions::create_condition( $data );
+
+                $intial_conditions = $request['conditions'];
+                $conditions = array();
+                if ( is_array( $intial_conditions ) ) {
+                    $conditions = $intial_conditions;
+                }
+
+                $condition_id = QSM_Conditions::create_condition( $data, $conditions );
                 return array(
                     'status' => 'success',
                     'id'     => $condition_id,
@@ -483,8 +493,18 @@ function qsm_rest_save_condition( WP_REST_Request $request ) {
         $current_user = wp_get_current_user();
         if ( 0 !== $current_user ) {
             try {
-                $id = intval( $request['id'] );
+                $data = array(
+                    'quiz_id'     => $request['quizID'],
+                    'question_id' => $request['questionID'],
+                );
 
+                $intial_conditions = $request['conditions'];
+                $conditions = array();
+                if ( is_array( $intial_conditions ) ) {
+                    $conditions = $intial_conditions;
+                }
+
+                $condition_id = QSM_Conditions::save_condition( $data, $conditions );
                 return array(
                     'status' => 'success',
                 );

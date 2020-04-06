@@ -358,7 +358,7 @@ function qsm_options_questions_tab_content() {
             </p>
             <p>
                 <select class="question_related_id">
-                    <option>-- выберите вопрос --</option>
+                    <option value="">-- выберите вопрос --</option>
                     <# _.each(data.questions, function(question){ #>
                     <option value="{{question.value}}">{{question.name}}</option>
                     <# }) #>
@@ -366,7 +366,7 @@ function qsm_options_questions_tab_content() {
             </p>
             <p>
                 <select class="condition_type">
-                    <option>-- не выбрано --</option>
+                    <option value="">-- не выбрано --</option>
                     <# _.each(data.types, function(name, value){ #>
                     <option {{value == data.condition_type ? 'selected' : ''}} value="{{value}}">{{name}}</option>
                     <# }) #>
@@ -374,7 +374,7 @@ function qsm_options_questions_tab_content() {
             </p>
             <p>
                 <select class="condition_value">
-                    <option>-- не выбрано --</option>
+                    <option value="">-- не выбрано --</option>
                     <!--
                     <# _.each(data.questions, function(question){ #>
                         <# _.each(question.answers, function(answer){ #>
