@@ -50,6 +50,7 @@ function qsm_options_questions_tab_content() {
         'qsm_user_ve' => get_user_meta($user_id, 'rich_editing', true),
         'saveNonce' => wp_create_nonce('ajax-nonce-sandy-page'),
         'types' => QSM_Conditions::$types,
+        'question_types' => $mlwQuizMasterNext->pluginHelper->get_question_type_options(),
     );
 
 	// Scripts and styles.
@@ -356,15 +357,15 @@ function qsm_options_questions_tab_content() {
                 Показать, если в ответ на вопрос
             </p>
             <p>
-                <select id="question_related_id">
+                <select class="question_related_id">
                     <option>-- выберите вопрос --</option>
                     <# _.each(data.questions, function(question){ #>
-                    <option value="{{question.id}}">{{question.attributes.name}}</option>
+                    <option value="{{question.value}}">{{question.name}}</option>
                     <# }) #>
                 </select>
             </p>
             <p>
-                <select id="condition_type">
+                <select class="condition_type">
                     <option>-- не выбрано --</option>
                     <# _.each(data.types, function(name, value){ #>
                     <option {{value == data.condition_type ? 'selected' : ''}} value="{{value}}">{{name}}</option>
@@ -372,8 +373,15 @@ function qsm_options_questions_tab_content() {
                 </select>
             </p>
             <p>
-                <select id="condition_value">
+                <select class="condition_value">
                     <option>-- не выбрано --</option>
+                    <!--
+                    <# _.each(data.questions, function(question){ #>
+                        <# _.each(question.answers, function(answer){ #>
+                        <option data-question-id="{{answer.question_id}}" data-question-type="{{answer.type}}" value="{{answer.value}}">{{answer.name}}</option>
+                        <# }) #>
+                    <# }) #>
+                    -->
                 </select>
             </p>
         </div>

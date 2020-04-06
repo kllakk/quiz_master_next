@@ -457,6 +457,9 @@ var import_button;
 				quicktags:    true,
 			};
 			wp.editor.initialize( 'question-text', settings );
+		},
+		decodeEntities: function( text ) {
+			return decodeEntities(text);
 		}
 	};
 

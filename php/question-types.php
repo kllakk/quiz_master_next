@@ -14,7 +14,7 @@ function qmn_question_type_multiple_choice()
 	$mlwQuizMasterNext->pluginHelper->register_question_type(__("Multiple Choice", 'quiz-master-next'), 'qmn_multiple_choice_display', true, 'qmn_multiple_choice_review', null, null, 0);
 }
 
-add_action("plugins_loaded", 'qmn_question_type_file_upload');
+//add_action("plugins_loaded", 'qmn_question_type_file_upload');
 /**
 * Registers the file upload type
 *
@@ -172,7 +172,7 @@ function qmn_multiple_choice_review($id, $question, $answers)
   return $return_array;
 }
 
-add_action("plugins_loaded", 'qmn_question_type_date');
+//add_action("plugins_loaded", 'qmn_question_type_date');
 /**
 * Registers the date type
 *
@@ -241,7 +241,7 @@ function qmn_date_review($id, $question, $answers) {
     return $return_array;
 }
 
-add_action("plugins_loaded", 'qmn_question_type_horizontal_multiple_choice');
+//add_action("plugins_loaded", 'qmn_question_type_horizontal_multiple_choice');
 
 /**
 * This function registers the horizontal multiple choice type.
@@ -332,7 +332,7 @@ function qmn_horizontal_multiple_choice_review($id, $question, $answers)
   return $return_array;
 }
 
-add_action("plugins_loaded", 'qmn_question_type_drop_down');
+//add_action("plugins_loaded", 'qmn_question_type_drop_down');
 
 /**
 * This function registers the drop down question type
@@ -608,7 +608,7 @@ function qmn_multiple_response_review($id, $question, $answers)
   return $return_array;
 }
 
-add_action("plugins_loaded", 'qmn_question_type_large_open');
+//add_action("plugins_loaded", 'qmn_question_type_large_open');
 
 /**
 * This function registers the large open question type.
@@ -680,7 +680,7 @@ function qmn_large_open_review($id, $question, $answers)
   return $return_array;
 }
 
-add_action("plugins_loaded", 'qmn_question_type_text_block');
+//add_action("plugins_loaded", 'qmn_question_type_text_block');
 
 /**
 * This function registers the text block question type
@@ -795,7 +795,7 @@ function qmn_number_review($id, $question, $answers)
   return $return_array;
 }
 
-add_action("plugins_loaded", 'qmn_question_type_accept');
+//add_action("plugins_loaded", 'qmn_question_type_accept');
 
 /**
 * This function registers the accept question type.
@@ -840,7 +840,7 @@ function qmn_accept_display($id, $question, $answers)
   return apply_filters('qmn_accept_display_front',$question_display,$id, $question, $answers);
 }
 
-add_action("plugins_loaded", 'qmn_question_type_captcha');
+//add_action("plugins_loaded", 'qmn_question_type_captcha');
 
 /**
 * This function registers the captcha question
@@ -906,7 +906,7 @@ function qmn_captcha_display($id, $question, $answers)
   return apply_filters('qmn_captcha_display_front',$question_display,$id, $question, $answers);
 }
 
-add_action("plugins_loaded", 'qmn_question_type_horizontal_multiple_response');
+//add_action("plugins_loaded", 'qmn_question_type_horizontal_multiple_response');
 
 /**
 * This function registers the horizontal multiple response question
@@ -1008,7 +1008,7 @@ function qmn_horizontal_multiple_response_review($id, $question, $answers)
   return $return_array;
 }
 
-add_action("plugins_loaded", 'qmn_question_type_fill_blank');
+//add_action("plugins_loaded", 'qmn_question_type_fill_blank');
 
 /**
 * This function registers the fill in the blank question type
@@ -1111,7 +1111,7 @@ function qmn_fill_blank_review($id, $question, $answers)
 
 
 //Start polar question
-add_action("plugins_loaded", 'qmn_question_type_polar');
+//add_action("plugins_loaded", 'qmn_question_type_polar');
 
 /**
  * This function registers the fill in the blank question type
