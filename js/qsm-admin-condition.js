@@ -23,12 +23,11 @@ var QSMCondition;
                     quizID: qsmConditionSettings.quizID,
                     questionID: questionID,
                 },
-                success: QSMCondition.loadSuccess(questionID),
+                success: function(models, response, options) {
+                    QSMCondition.openConditionsPopup( questionID );
+                },
                 error: QSMAdmin.displayError
             });
-        },
-        loadSuccess: function(questionID) {
-            QSMCondition.openConditionsPopup( questionID );
         },
         saveSuccess: function( model ) {
             QSMAdmin.displayAlert( 'Condition was saved!', 'success' );
@@ -70,24 +69,23 @@ var QSMCondition;
             $( "#conditions-question-id" ).text('').text(questionID);
             $( '#conditions' ).empty();
 
-            var condition = QSMCondition.conditions.get( questionID );
-            if (condition) {
-                console.log(condition.get('conditions'));
-                console.log(QSMCondition.condition);
-                console.log(condition);
-
+            var model = QSMCondition.conditions.get( questionID );
+            if (model) {
                 var cl = 0;
-                var conditions = condition.get('conditions');
+                var conditions = model.get('conditions');
+                //console.log(conditions);
                 _.each(conditions, function (condition) {
-                    console.log(condition);
                     condition.push(condition.question_related_id);
                     condition.push(condition.condition_type);
                     condition.push(condition.condition_value);
                     condition.push(0);
                     condition.push(questionID);
+                    //console.log(condition);
                     QSMCondition.addNewCondition(condition);
                     cl++;
                 });
+
+                $( '.question_related_id' ).trigger('change');
             }
 
             MicroModal.show( 'modal-1010' );
@@ -110,41 +108,60 @@ var QSMCondition;
         addNewCondition: function( condition ) {
             var conditionTemplate = wp.template( 'single-condition' );
 
+            var index = $('.conditions-single').length;
+            var selectedQuestionId = condition[0];
+            var selectedType = condition[1];
+            var selectedAnswer = condition[2];
+            var conditionCount = condition[3];
+            var conditionQuestionId = condition[4];
+
             var questions = _.map(QSMQuestion.questions.models, function(question) {
                 return {
                     'value': question.id,
                     'name': QSMQuestion.decodeEntities(question.attributes.name),
                     'type': question.attributes.type,
+                    'selected_question': selectedQuestionId,
+                    'selected_answer': selectedAnswer,
                     'answers':  _.map(question.attributes.answers, function(answer) {
                         return {
                             'value': answer[0],
                             'name': answer[0],
                             'type': question.attributes.type,
                             'question_id': question.id,
+                            'selected': answer[0] == selectedAnswer && question.id == selectedQuestionId
                         };
                     })
                 };
             });
 
+            console.log(questions);
+
             $( '#conditions' ).append( conditionTemplate( {
-                question_related_id: condition[0],
-                condition_type: condition[1],
-                condition_value: condition[2],
-                count: condition[3],
+                index: index,
+                question_related_id: selectedQuestionId,
+                condition_type: selectedType,
+                condition_value: selectedAnswer,
+                count: conditionCount,
                 questions: questions,
                 types: qsmConditionSettings.types,
-                question_id: condition[4] }) );
+                question_id: conditionQuestionId }) );
 
-            $( '.question_related_id' ).on( 'change', function( event ) {
+            $( '.question_related_id[data-index=' + index + ']' ).on( 'change', function( event ) {
+                console.log(event);
                 var select = $(this).closest('.conditions-single').find('select.condition_value');
                 var questionId = $(this).val();
-                var filtered = _.filter(questions, function(question){ return question.value == questionId; });
-                var question = _.first(filtered);
-                var answers = question.answers;
-
                 select.find("option[value!='']").remove();
-                for (var i = 0; i < answers.length; i++) {
-                    select.append('<option value=' + answers[i].value + '>' + answers[i].name + '</option>');
+                if (questionId) {
+                    var filtered = _.filter(questions, function (question) {
+                        return question.value == questionId;
+                    });
+                    console.log(filtered);
+                    var question = _.first(filtered);
+                    var answers = question.answers;
+
+                    for (var i = 0; i < answers.length; i++) {
+                        select.append('<option data-t1="' + question.selected_question + '" data-t2="' + question.selected_answer + '" ' + (answers[i].selected ? 'selected' : '') + ' value="' + answers[i].value + '">' + answers[i].name + '</option>');
+                    }
                 }
             });
         }

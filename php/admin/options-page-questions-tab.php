@@ -350,17 +350,17 @@ function qsm_options_questions_tab_content() {
 
     <!-- View for single answer -->
     <script type="text/template" id="tmpl-single-condition">
-        <div class="conditions-single">
-            <h5>Условие 1</h5>
+        <div class="conditions-single" data-index="{{ data.index }}">
+            <h5>Условие {{data.index + 1}}</h5>
             <div><a href="#" class="delete-condition-button"><span class="dashicons dashicons-trash"></span></a></div>
             <p>
                 Показать, если в ответ на вопрос
             </p>
             <p>
-                <select class="question_related_id">
+                <select class="question_related_id" data-index="{{ data.index }}">
                     <option value="">-- выберите вопрос --</option>
                     <# _.each(data.questions, function(question){ #>
-                    <option value="{{question.value}}">{{question.name}}</option>
+                    <option {{question.value == data.question_related_id ? 'selected' : ''}} value="{{question.value}}">{{question.name}}</option>
                     <# }) #>
                 </select>
             </p>
@@ -375,13 +375,6 @@ function qsm_options_questions_tab_content() {
             <p>
                 <select class="condition_value">
                     <option value="">-- не выбрано --</option>
-                    <!--
-                    <# _.each(data.questions, function(question){ #>
-                        <# _.each(question.answers, function(answer){ #>
-                        <option data-question-id="{{answer.question_id}}" data-question-type="{{answer.type}}" value="{{answer.value}}">{{answer.name}}</option>
-                        <# }) #>
-                    <# }) #>
-                    -->
                 </select>
             </p>
         </div>
