@@ -16,7 +16,7 @@ var import_button;
 				comments: '1',
 				hint: '',
 				category: '',
-				required: 1,
+				required: '0',
 				answers: [],
 				page: 0
 			}
