@@ -2,12 +2,12 @@
 /**
  * Plugin Name: Опросник
  * Description: Создан на базе Quiz And Survey Master.
- * Version: 6.4.6
+ * Version: 6.4.5
  * Author: Петров Сергей
  * Text Domain: quiz-master-next
  *
  * @author QSM Team
- * @version 6.4.6
+ * @version 6.4.5
  * @package QSM
  */
 
@@ -35,7 +35,7 @@ class MLWQuizMasterNext {
 	 * @var string
 	 * @since 4.0.0
 	 */
-	public $version = '6.4.6';
+	public $version = '6.4.5';
 
 	/**
 	 * QSM Alert Manager Object
@@ -144,6 +144,7 @@ class MLWQuizMasterNext {
 			include 'php/gdpr.php';
 		}
 		include 'php/classes/class-qsm-questions.php';
+		include 'php/classes/class-qsm-conditions.php';
 		include 'php/classes/class-qsm-contact-manager.php';
 		include 'php/classes/class-qsm-results-pages.php';
 		include 'php/classes/class-qsm-emails.php';

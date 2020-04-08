@@ -14,6 +14,20 @@ add_action( 'rest_api_init', 'qsm_register_rest_routes' );
  * @since 5.2.0
  */
 function qsm_register_rest_routes() {
+
+    register_rest_route( 'quiz-survey-master/v1', '/conditions/', array(
+        'methods'  => WP_REST_Server::READABLE,
+        'callback' => 'qsm_rest_get_conditions',
+    ) );
+    register_rest_route( 'quiz-survey-master/v1', '/conditions/', array(
+        'methods'  => WP_REST_Server::CREATABLE,
+        'callback' => 'qsm_rest_create_conditions',
+    ) );
+    register_rest_route( 'quiz-survey-master/v1', '/conditions/(?P<id>\d+)', array(
+        'methods'  => WP_REST_Server::EDITABLE,
+        'callback' => 'qsm_rest_save_condition',
+    ) );
+
 	register_rest_route( 'quiz-survey-master/v1', '/questions/', array(
 		'methods'  => WP_REST_Server::READABLE,
 		'callback' => 'qsm_rest_get_questions',
@@ -282,6 +296,39 @@ function qsm_rest_get_question( WP_REST_Request $request ) {
 }
 
 /**
+ * Gets all conditions
+ *
+ * @since 5.2.0
+ * @param WP_REST_Request $request The request sent from WP REST API.
+ * @return array Something.
+ */
+function qsm_rest_get_conditions( WP_REST_Request $request ) {
+    // Makes sure user is logged in.
+    if ( is_user_logged_in() ) {
+        $current_user = wp_get_current_user();
+        if ( 0 !== $current_user ) {
+            $quiz_id = isset( $request['quizID'] ) ? intval( $request['quizID'] ) : 0;
+            $question_id = isset( $request['questionID'] ) ? intval( $request['questionID'] ) : 0;
+            $conditions = QSM_Conditions::load_conditions( $question_id, $quiz_id );
+            $condition_array = array();
+            foreach ( $conditions as $condition ) {
+                $condition_array[] = [
+                    'id' => $condition['question_id'],
+                    'questionID' => $condition['question_id'],
+                    'quizID'     => $condition['quiz_id'],
+                    'conditions' => $condition['conditions'],
+                ];
+            }
+            return $condition_array;
+        }
+    }
+    return array(
+        'status' => 'error',
+        'msg'    => 'User not logged in',
+    );
+}
+
+/**
  * Gets all questions
  *
  * @since 5.2.0
@@ -336,6 +383,51 @@ function qsm_rest_get_questions( WP_REST_Request $request ) {
 }
 
 /**
+ * REST API endpoint function for creating conditions
+ *
+ * @since 5.2.0
+ * @param WP_REST_Request $request The request sent from WP REST API.
+ * @return array An array that contains the key 'id' for the new condition.
+ */
+function qsm_rest_create_conditions( WP_REST_Request $request ) {
+
+    // Makes sure user is logged in.
+    if ( is_user_logged_in() ) {
+        $current_user = wp_get_current_user();
+        if ( 0 !== $current_user ) {
+            try {
+                $data = array(
+                    'quiz_id'     => $request['quizID'],
+                    'question_id'  => $request['questionID'],
+                );
+
+                $intial_conditions = $request['conditions'];
+                $conditions = array();
+                if ( is_array( $intial_conditions ) ) {
+                    $conditions = $intial_conditions;
+                }
+
+                $condition_id = QSM_Conditions::create_condition( $data, $conditions );
+                return array(
+                    'status' => 'success',
+                    'id'     => $condition_id,
+                );
+            } catch ( Exception $e ) {
+                $msg = $e->getMessage();
+                return array(
+                    'status' => 'error',
+                    'msg'    => "There was an error when creating your question. Please try again. Error from WordPress: $msg",
+                );
+            }
+        }
+    }
+    return array(
+        'status' => 'error',
+        'msg'    => 'User not logged in',
+    );
+}
+
+/**
  * REST API endpoint function for creating questions
  *
  * @since 5.2.0
@@ -386,6 +478,49 @@ function qsm_rest_create_question( WP_REST_Request $request ) {
 		'status' => 'error',
 		'msg'    => 'User not logged in',
 	);
+}
+
+/**
+ * REST API endpoint function for saving conditions
+ *
+ * @since 5.2.0
+ * @param WP_REST_Request $request The request sent from WP REST API.
+ * @return array An array that contains the key 'id' for the new condition.
+ */
+function qsm_rest_save_condition( WP_REST_Request $request ) {
+// Makes sure user is logged in.
+    if ( is_user_logged_in() ) {
+        $current_user = wp_get_current_user();
+        if ( 0 !== $current_user ) {
+            try {
+                $data = array(
+                    'quiz_id'     => $request['quizID'],
+                    'question_id' => $request['questionID'],
+                );
+
+                $intial_conditions = $request['conditions'];
+                $conditions = array();
+                if ( is_array( $intial_conditions ) ) {
+                    $conditions = $intial_conditions;
+                }
+
+                $condition_id = QSM_Conditions::save_condition( $data, $conditions );
+                return array(
+                    'status' => 'success',
+                );
+            } catch ( Exception $e ) {
+                $msg = $e->getMessage();
+                return array(
+                    'status' => 'error',
+                    'msg'    => "There was an error when creating your condition. Please try again. Error from WordPress: $msg",
+                );
+            }
+        }
+    }
+    return array(
+        'status' => 'error',
+        'msg'    => 'User not logged in',
+    );
 }
 
 /**

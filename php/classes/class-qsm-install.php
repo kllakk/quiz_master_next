@@ -876,7 +876,7 @@ class QSM_Install {
       'id' => 'empty_error_text',
       'label' => __('Text for when user has not filled in all required fields', 'quiz-master-next'),
       'type' => 'text',
-      'default' => 'Please complete all required fields!'
+      'default' =>  __('Please complete all required fields!', 'quiz-master-next'),
     );
     $mlwQuizMasterNext->pluginHelper->register_quiz_setting( $field_array, 'quiz_text' );
 
@@ -939,6 +939,7 @@ class QSM_Install {
 
   	$quiz_table_name = $wpdb->prefix . "mlw_quizzes";
   	$question_table_name = $wpdb->prefix . "mlw_questions";
+  	$condition_table_name = $wpdb->prefix . "mlw_conditions";
   	$results_table_name = $wpdb->prefix . "mlw_results";
   	$audit_table_name = $wpdb->prefix . "mlw_qm_audit_trail";
 
@@ -1040,6 +1041,21 @@ class QSM_Install {
   		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
   		dbDelta( $sql );
   	}
+
+
+    if( $wpdb->get_var( "SHOW TABLES LIKE '$condition_table_name'" ) != $condition_table_name ) {
+      $sql = "CREATE TABLE $condition_table_name (
+        question_id INT NOT NULL,
+        quiz_id INT NOT NULL,
+        condition_array TEXT NOT NULL,
+        deleted INT NOT NULL,
+        PRIMARY KEY  (question_id),
+        INDEX (quiz_id)
+    ) $charset_collate;";
+
+      require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+      dbDelta( $sql );
+    }
 
   	if( $wpdb->get_var( "SHOW TABLES LIKE '$results_table_name'" ) != $results_table_name ) {
   		$sql = "CREATE TABLE $results_table_name (

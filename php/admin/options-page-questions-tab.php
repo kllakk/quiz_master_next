@@ -42,10 +42,23 @@ function qsm_options_questions_tab_content() {
                 'saveNonce' => wp_create_nonce('ajax-nonce-sandy-page')
 	);
 
+    $json_data_conditions = array(
+        'quizID'     => $quiz_id,
+        'answerText' => __( 'Answer', 'quiz-master-next' ),
+        'nonce'      => wp_create_nonce( 'wp_rest' ),
+        'pages'      => $mlwQuizMasterNext->pluginHelper->get_quiz_setting( 'pages', array() ),
+        'qsm_user_ve' => get_user_meta($user_id, 'rich_editing', true),
+        'saveNonce' => wp_create_nonce('ajax-nonce-sandy-page'),
+        'types' => QSM_Conditions::$types,
+        'question_types' => $mlwQuizMasterNext->pluginHelper->get_question_type_options(),
+    );
+
 	// Scripts and styles.
 	wp_enqueue_script( 'micromodal_script', plugins_url( '../../js/micromodal.min.js', __FILE__ ) );
 	wp_enqueue_script( 'qsm_admin_question_js', plugins_url( '../../js/qsm-admin-question.js', __FILE__ ), array( 'backbone', 'underscore', 'jquery-ui-sortable', 'wp-util', 'micromodal_script', 'qmn_admin_js' ), $mlwQuizMasterNext->version, true );
 	wp_localize_script( 'qsm_admin_question_js', 'qsmQuestionSettings', $json_data );
+    wp_enqueue_script( 'qsm_admin_condition_js', plugins_url( '../../js/qsm-admin-condition.js', __FILE__ ), array( 'backbone', 'underscore', 'jquery-ui-sortable', 'wp-util', 'micromodal_script', 'qmn_admin_js' ), $mlwQuizMasterNext->version, true );
+	wp_localize_script( 'qsm_admin_condition_js', 'qsmConditionSettings', $json_data_conditions );
 	wp_enqueue_style( 'qsm_admin_question_css', plugins_url( '../../css/qsm-admin-question.css', __FILE__ ), array(), $mlwQuizMasterNext->version );
 	wp_enqueue_script( 'math_jax', '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' );
 	wp_enqueue_editor();
@@ -240,6 +253,33 @@ function qsm_options_questions_tab_content() {
 		</div>
 	</div>
 
+    <!-- Popup for question conditions -->
+    <div class="qsm-popup qsm-popup-slide" id="modal-1010" aria-hidden="true">
+        <div class="qsm-popup__overlay" tabindex="-1" data-micromodal-close>
+            <div class="qsm-popup__container" role="dialog" aria-modal="true" aria-labelledby="modal-1010-title">
+                <header class="qsm-popup__header">
+                    <h2 class="qsm-popup__title" id="modal-1010-title">Условия вопроса [ ID: <span id="conditions-question-id"></span>  ]</h2>
+                    <a class="qsm-popup__close" aria-label="Close modal" data-micromodal-close></a>
+                </header>
+                <main class="qsm-popup__content" id="modal-1010-content">
+                    <input type="hidden" name="conditions_question_id" id="conditions_question_id" value="">
+                    <div class="qsm-row">
+                        <div class="conditions" id="conditions">
+
+                        </div>
+                    </div>
+                    <div class="qsm-row">
+                        <a href="#" id="new-condition-button" class="button"><?= __('Create New Condition', 'quiz-master-next') ?></a>
+                    </div>
+                </main>
+                <footer class="qsm-popup__footer">
+                    <button id="save-conditions-popup-button" class="qsm-popup__btn qsm-popup__btn-primary"><?= __('Save Conditions', 'quiz-master-next') ?></button>
+                    <button class="qsm-popup__btn" data-micromodal-close aria-label="Close this dialog window"><?= __('Cancel', 'quiz-master-next') ?></button>
+                </footer>
+            </div>
+        </div>
+    </div>
+
 	<!--Views-->
 
 	<!-- View for Page -->
@@ -265,6 +305,7 @@ function qsm_options_questions_tab_content() {
 				<div><span class="dashicons dashicons-move"></span></div>
 				<div><a href="#" class="edit-question-button"><span class="dashicons dashicons-edit"></span></a></div>
 				<div><a href="#" class="duplicate-question-button"><span class="dashicons dashicons-controls-repeat"></span></a></div>
+				<div><a href="#" class="edit-conditions-button"><span class="dashicons dashicons-editor-insertmore"></span></a></div>
 				<div class="question-content-text">{{{data.question}}}</div>
 				<div><# if ( 0 !== data.category.length ) { #> Category: {{data.category}} <# } #></div>
 				<div><a href="#" class="delete-question-button"><span class="dashicons dashicons-trash"></span></a><div>
@@ -306,6 +347,38 @@ function qsm_options_questions_tab_content() {
 			<div><input type="checkbox" class="answer-correct" value="1" <# if ( 1 == data.correct ) { #> checked="checked"/> <# } #></div>
 		</div>
 	</script>
+
+    <!-- View for single answer -->
+    <script type="text/template" id="tmpl-single-condition">
+        <div class="conditions-single" data-index="{{ data.index }}">
+            <h5>Условие {{data.index + 1}}</h5>
+            <div><a href="#" class="delete-condition-button"><span class="dashicons dashicons-trash"></span></a></div>
+            <p>
+                Показать, если в ответ на вопрос
+            </p>
+            <p>
+                <select class="question_related_id" data-index="{{ data.index }}">
+                    <option value="">-- выберите вопрос --</option>
+                    <# _.each(data.questions, function(question){ #>
+                    <option {{question.value == data.question_related_id ? 'selected' : ''}} value="{{question.value}}">{{question.name}}</option>
+                    <# }) #>
+                </select>
+            </p>
+            <p>
+                <select class="condition_type">
+                    <option value="">-- не выбрано --</option>
+                    <# _.each(data.types, function(name, value){ #>
+                    <option {{value == data.condition_type ? 'selected' : ''}} value="{{value}}">{{name}}</option>
+                    <# }) #>
+                </select>
+            </p>
+            <p>
+                <select class="condition_value">
+                    <option value="">-- не выбрано --</option>
+                </select>
+            </p>
+        </div>
+    </script>
 	<?php
 }
 
