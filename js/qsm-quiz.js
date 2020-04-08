@@ -255,7 +255,7 @@ var QSM;
 						from: {color: '#3498db'},
 						to: {color: '#ED6A5A'},
 						step: function(state, bar) {
-						  bar.setText(Math.round(bar.value() * 100) + ' %');
+						  //bar.setText(Math.round(bar.value() * 100) + ' %');
 						}
 					});
 				}
@@ -292,7 +292,7 @@ var QSM;
 				$quizForm.find( '.qsm-previous' ).show();
 			}
 			if ( '1' == qmn_quiz_data[ quizID ].progress_bar ) {
-				qmn_quiz_data[ quizID ].bar.animate( pageNumber / $pages.length );
+				qmn_quiz_data[ quizID ].bar.animate( (pageNumber - 1) / $pages.length );
 			}
 			QSM.savePage( quizID, pageNumber );
 		},
@@ -853,6 +853,8 @@ jQuery(function() {
         });
         
         jQuery(document).on('change','.qmn_radio_answers input',function(e){
+        	console.log('qmn_radio_answers input', e);
+			QSM.nextPage( quizID );
             if(qmn_ajax_object.enable_quick_result_mc == 1){
                 var question_id = jQuery(this).attr('name').split('question')[1], 
                     value = jQuery(this).val(),

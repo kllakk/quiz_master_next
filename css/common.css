@@ -86,12 +86,45 @@
     }
 }
 
-.quiz-question-title {
+.quiz-question-title,
+.quiz-question-title h2 {
     font-size: 30px;
     font-weight: 500 !important;
     line-height: 1.15;
+    margin: 0 0 5px 0;
 }
 
 .qsm-page {
     padding: 0 !important;
+}
+
+#qsm-progress-bar {
+    padding: 0 !important;
+    height: 5px;
+}
+
+.mlw_qmn_message_before {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.qmn_btn {
+    border-radius: 3px !important;
+    font-weight: 400 !important;
+    text-transform: none !important;
+}
+
+.qmn_pagination {
+    padding: 15px 0 0 0;
+}
+
+.clear-fix::after {
+     display: block;
+     content: "";
+     clear: both;
+}
+
+.qsm-hint {
+    text-decoration: none;
 }

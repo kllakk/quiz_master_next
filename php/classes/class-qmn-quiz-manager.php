@@ -644,7 +644,7 @@ class QMNQuizManager {
         }
         $quiz_display = apply_filters('qsm_display_before_form', $quiz_display);
         $quiz_display .= "<form name='quizForm{$quiz_data['quiz_id']}' id='quizForm{$quiz_data['quiz_id']}' action='' method='POST' class='qsm-quiz-form qmn_quiz_form mlw_quiz_form' novalidate  enctype='multipart/form-data'>";
-        $quiz_display .= "<div name='mlw_error_message' id='mlw_error_message' class='qsm-error-message qmn_error_message_section'></div>";
+        $quiz_display .= "<div style='display: none' name='mlw_error_message' id='mlw_error_message' class='qsm-error-message qmn_error_message_section'></div>";
         $quiz_display .= "<span id='mlw_top_of_quiz'></span>";
         $quiz_display = apply_filters('qmn_begin_quiz_form', $quiz_display, $options, $quiz_data);
 
@@ -665,7 +665,7 @@ class QMNQuizManager {
             $quiz_display .= $this->display_end_section($options, $quiz_data);
         }
         $quiz_display = apply_filters('qmn_before_error_message', $quiz_display, $options, $quiz_data);
-        $quiz_display .= "<div name='mlw_error_message_bottom' id='mlw_error_message_bottom' class='qsm-error-message qmn_error_message_section'></div>";
+        $quiz_display .= "<div style='display: none' name='mlw_error_message_bottom' id='mlw_error_message_bottom' class='qsm-error-message qmn_error_message_section'></div>";
         $quiz_display .= "<input type='hidden' name='total_questions' id='total_questions' value='$qmn_total_questions'/>";
         $quiz_display .= "<input type='hidden' name='timer' id='timer' value='0'/>";
         $quiz_display .= "<input type='hidden' name='timer_ms' id='timer_ms' value='0'/>";
@@ -722,15 +722,9 @@ class QMNQuizManager {
             $quiz_description = wpautop(htmlspecialchars_decode($options->quiz_description, ENT_QUOTES));
             $quiz_description = apply_filters('mlw_qmn_template_variable_quiz_page', $quiz_description, $quiz_data);
             ?>
-            <div class="quiz_section quiz_begin">
-                <div class='qsm-before-message mlw_qmn_message_before'><?php echo $quiz_description; ?></div>
-                <?php
-                if (0 == $options->contact_info_location) {
-                    echo QSM_Contact_Manager::display_fields($options);
-                }
-                ?>
+            <div class="quiz_section">
+                <div class='qsm-quiz-description mlw_qmn_quiz_description'>123123123213</div>
             </div>
-            <div id="qsm-progress-bar" style="display:none;"></div>
             <?php
         }
 
@@ -769,7 +763,7 @@ class QMNQuizManager {
                         }
                         // Checks if a hint is entered.
                         if (!empty($question['hints'])) {
-                            echo '<div title="' . esc_attr(htmlspecialchars_decode($question['hints'], ENT_QUOTES)) . '" class="qsm-hint qsm_hint mlw_qmn_hint_link">' . $options->hint_text . '</div>';
+                            echo '<div title="' . esc_attr(htmlspecialchars_decode($question['hints'], ENT_QUOTES)) . '" class="qsm-hint qsm_hint mlw_qmn_hint_link">?</div>';
                         }
                         ?>
                     </div>
@@ -805,6 +799,9 @@ class QMNQuizManager {
         } else {
             $total_pages_count = count($pages);
             $pages_count = 1;
+            ?>
+            <div class="clear-fix"></div>
+            <div id="qsm-progress-bar" style="display:none;"></div><?php
             foreach ($pages as $page) {
                 ?>
                 <section class="qsm-page <?php echo $animation_effect; ?>">
@@ -824,7 +821,7 @@ class QMNQuizManager {
                             }
                             // Checks if a hint is entered.
                             if (!empty($question['hints'])) {
-                                echo '<div title="' . esc_attr(htmlspecialchars_decode($question['hints'], ENT_QUOTES)) . '" class="qsm-hint qsm_hint mlw_qmn_hint_link">' . $options->hint_text . '</div>';
+                                echo '<div title="' . esc_attr(htmlspecialchars_decode($question['hints'], ENT_QUOTES)) . '" class="qsm-hint qsm_hint mlw_qmn_hint_link">?</div>';
                             }
                             ?>
                         </div>
@@ -880,7 +877,7 @@ class QMNQuizManager {
         ?>
         <!-- View for pagination -->
         <script type="text/template" id="tmpl-qsm-pagination">
-            <div class="qsm-pagination qmn_pagination border margin-bottom">
+            <div class="qsm-pagination qmn_pagination border">
             <a class="qsm-btn qsm-previous qmn_btn mlw_qmn_quiz_link mlw_previous" href="#"><?php echo esc_html(__($options->previous_button_text, 'quiz-master-next')); ?></a>
             <span class="qmn_page_message"></span>
             <div class="qmn_page_counter_message"></div>

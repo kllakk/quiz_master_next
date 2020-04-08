@@ -170,13 +170,13 @@ function qsm_options_questions_tab_content() {
                                                     </select>
                                                 </label>                             
 					</div>
-                                        <p id="show-advanced-option">Дополнительные параметры &raquo;</p>
+                                        <p id="show-advanced-option" style="display: none;">Дополнительные параметры &raquo;</p>
                                         <div class="advanced-content" style="display: none;">
-                                            <div id="correct_answer_area" class="qsm-row">
+                                            <div id="correct_answer_area" class="qsm-row" style="display: none;">
 						<label><?php _e( 'Correct Answer Info', 'quiz-master-next' ); ?></label>
 						<input type="text" name="correct_answer_info" value="" id="correct_answer_info" />
                                             </div>
-                                            <div id="hint_area" class="qsm-row">
+                                            <div id="hint_area" class="qsm-row" style="display: none;">
                                                     <label><?php _e( 'Hint', 'quiz-master-next' ); ?></label>
                                                     <input type="text" name="hint" value="" id="hint"/>
                                             </div>
@@ -194,7 +194,7 @@ function qsm_options_questions_tab_content() {
 
 
 
-                                            <div id="required_area" class="qsm-row">
+                                            <div id="required_area" class="qsm-row" style="display: none">
                                                     <label><?php _e( 'Required?', 'quiz-master-next' ); ?></label>
                                                     <select name="required" id="required">
                                                             <option value="0" selected="selected"><?php _e( 'Yes', 'quiz-master-next' ); ?></option>
@@ -211,7 +211,7 @@ function qsm_options_questions_tab_content() {
                                                     </div>
                                             </div>
 
-                                            <div id="required_area" class="qsm-row">
+                                            <div id="required_area" class="qsm-row" style="display: none">
                                                     <label><?php _e( 'Hide Autofill?', 'quiz-master-next' ); ?></label>
                                                     <select name="hide_autofill" id="hide_autofill">
                                                             <option value="0"><?php _e( 'No', 'quiz-master-next' ); ?></option>
@@ -219,11 +219,11 @@ function qsm_options_questions_tab_content() {
                                                     </select>
                                             </div>
 
-                                            <div id="required_area" class="qsm-row">
+                                            <div id="required_area" class="qsm-row" style="display: none">
                                                     <label><?php _e( 'Limit Text( Works for text fields )', 'quiz-master-next' ); ?></label>
                                                     <input type="number" name="limit_text" value="" id="limit_text"/>
                                             </div>
-                                            <div id="required_area" class="qsm-row">
+                                            <div id="required_area" class="qsm-row" style="display: none">
                                                     <label><?php _e( 'Limit Multiple choice( Works for Multiple Response )', 'quiz-master-next' ); ?></label>
                                                     <input type="number" name="limit_multiple_response" value="" id="limit_multiple_response"/>
                                             </div>
