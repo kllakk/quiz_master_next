@@ -644,7 +644,20 @@ class QSM_Install {
       'default' => ''
     );
     $mlwQuizMasterNext->pluginHelper->register_quiz_setting( $field_array, 'quiz_options' );
-    
+
+    // Registers quiz_description
+    $field_array = array(
+      'id' => 'quiz_description',
+      'label' =>  __("Quiz description", 'quiz-master-next'),
+      'type' => 'editor',
+      'default' => '',
+      'variables' => array(
+          '%QUIZ_NAME%',
+          '%CURRENT_DATE%'
+      )
+    );
+    $mlwQuizMasterNext->pluginHelper->register_quiz_setting( $field_array, 'quiz_text' );
+
     // Registers message_before setting
     $field_array = array(
       'id' => 'message_before',
@@ -990,6 +1003,7 @@ class QSM_Install {
   			quiz_views INT NOT NULL,
   			quiz_taken INT NOT NULL,
   			deleted INT NOT NULL,
+  			quiz_description TEXT NOT NULL,
   			PRIMARY KEY  (quiz_id)
   		) $charset_collate;";
 

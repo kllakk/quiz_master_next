@@ -127,6 +127,7 @@ class QMNQuizCreator {
 				'quiz_taken'               => 0,
 				'deleted'                  => 0,
 				'quiz_author_id'           => $current_user->ID,
+                'quiz_description'         => '',
 			),
 			array(
 				'%s',
@@ -182,6 +183,7 @@ class QMNQuizCreator {
 				'%d',
 				'%d',
 				'%d',
+                '%s',
 			)
 		);
 		if ( false !== $results ) {
@@ -329,6 +331,7 @@ class QMNQuizCreator {
 				$table_name,
 				array(
 					'quiz_name' => $quiz_name,
+					'quiz_description' => $mlw_qmn_duplicate_data->quiz_description,
 					'message_before' => $mlw_qmn_duplicate_data->message_before,
 					'message_after' => $mlw_qmn_duplicate_data->message_after,
 					'message_comment' => $mlw_qmn_duplicate_data->message_comment,

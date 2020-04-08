@@ -214,6 +214,17 @@ var QSM;
 		initPagination: function( quizID ) {
 			var $quizForm = QSM.getQuizForm( quizID );
 			if ( 0 < $quizForm.children( '.qsm-page' ).length ) {
+
+				$( '.qsm-modal-button' ).on( 'click', function( event ) {
+					event.preventDefault();
+					$(this).parent().find(".quiz-modal").show();
+				});
+
+				$( '.quiz-modal-close' ).on( 'click', function( event ) {
+					event.preventDefault();
+					$(this).closest(".quiz-modal").hide();
+				});
+
 				$quizForm.children( '.qsm-page' ).hide();
 				template = wp.template( 'qsm-pagination' );
 				$quizForm.append( template() );

@@ -340,6 +340,7 @@ class QSM_Quiz_Settings {
         // Prepares new quiz_text section's settings
         $settings_array["quiz_text"] = serialize( array(
           'message_before' => $quiz_options->message_before,
+			'quiz_description' => $quiz_options->quiz_description,
   				'message_comment' => $quiz_options->message_comment,
   				'message_end_template' => $quiz_options->message_end_template,
   				'comment_field_text' => $quiz_options->comment_field_text,
