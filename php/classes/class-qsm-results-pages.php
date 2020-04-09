@@ -149,7 +149,7 @@ class QSM_Results_Pages {
 			// variables, and then outputs the text.
 			$page = htmlspecialchars_decode( $content, ENT_QUOTES );
 			$page = apply_filters( 'mlw_qmn_template_variable_results_page', $page, $response_data );
-			echo str_replace( "\n", '<br>', $page );
+			echo '<span style="color: green">✔</span> ' . str_replace( "\n", '<br>', $page );
 			do_action( 'qsm_after_results_page' );
 			?>
 		</div>
