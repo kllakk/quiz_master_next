@@ -643,7 +643,7 @@ class QMNQuizManager {
             wp_reset_postdata();
         }
         $quiz_display = apply_filters('qsm_display_before_form', $quiz_display);
-        $quiz_display .= "<form name='quizForm{$quiz_data['quiz_id']}' id='quizForm{$quiz_data['quiz_id']}' action='' method='POST' class='qsm-quiz-form qmn_quiz_form mlw_quiz_form' novalidate  enctype='multipart/form-data'>";
+        $quiz_display .= "<form name='quizForm{$quiz_data['quiz_id']}' data-quiz-id='{$quiz_data['quiz_id']}' id='quizForm{$quiz_data['quiz_id']}' action='' method='POST' class='qsm-quiz-form qmn_quiz_form mlw_quiz_form' novalidate  enctype='multipart/form-data'>";
         $quiz_display .= "<div style='display: none' name='mlw_error_message' id='mlw_error_message' class='qsm-error-message qmn_error_message_section'></div>";
         $quiz_display .= "<span id='mlw_top_of_quiz'></span>";
         $quiz_display = apply_filters('qmn_begin_quiz_form', $quiz_display, $options, $quiz_data);
@@ -721,16 +721,19 @@ class QMNQuizManager {
         if (!empty($options->quiz_description)) {
             $quiz_description = wpautop(htmlspecialchars_decode($options->quiz_description, ENT_QUOTES));
             $quiz_description = apply_filters('mlw_qmn_template_variable_quiz_page', $quiz_description, $quiz_data);
-            ?>
-            <div class="quiz_section">
-                <div class='qsm-quiz-description mlw_qmn_quiz_description'>123123123213</div>
-            </div>
-            <?php
         }
+
+	    ?>
+        <div class="quiz_section">
+            <div class='qsm-quiz-description mlw_qmn_quiz_description'><?php echo isset($quiz_description) ? $quiz_description : $options->quiz_name; ?></div>
+        </div>
+	    <?php
 
         // If there is only one page.
         if (1 == count($pages)) {            
             ?>
+            <div class="clear-fix"></div>
+            <div class="qsm-progress-bar" style="display:none;"></div>
             <section class="qsm-page <?php echo $animation_effect; ?>">
                 <?php
                 if (!empty($options->message_before) || ( 0 == $options->contact_info_location && $contact_fields )) {
@@ -801,7 +804,7 @@ class QMNQuizManager {
             $pages_count = 1;
             ?>
             <div class="clear-fix"></div>
-            <div id="qsm-progress-bar" style="display:none;"></div><?php
+            <div class="qsm-progress-bar" style="display:none;"></div><?php
             foreach ($pages as $page) {
                 ?>
                 <section class="qsm-page <?php echo $animation_effect; ?>">

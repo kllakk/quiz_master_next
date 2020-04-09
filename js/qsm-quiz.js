@@ -225,12 +225,21 @@ var QSM;
 					$(this).closest(".quiz-modal").hide();
 				});
 
+				$(window).click(function(event) {
+					$(".quiz-modal").each(function() {
+						if (event.target == $(this)[0]) {
+							$(this).hide();
+						}
+					});
+				});
+
 				$quizForm.children( '.qsm-page' ).hide();
 				template = wp.template( 'qsm-pagination' );
 				$quizForm.append( template() );
 				if ( '1' == qmn_quiz_data[ quizID ].progress_bar ) {
-					$( '#qsm-progress-bar' ).show();
-					qmn_quiz_data[ quizID ].bar = new ProgressBar.Line('#qsm-progress-bar', {
+					var bar = $quizForm.find( '.qsm-progress-bar' );
+					bar.show();
+					qmn_quiz_data[ quizID ].bar = new ProgressBar.Line(bar.selector, {
 						strokeWidth: 2,
 						easing: 'easeInOut',
 						duration: 1400,
@@ -853,8 +862,7 @@ jQuery(function() {
         });
         
         jQuery(document).on('change','.qmn_radio_answers input',function(e){
-        	console.log('qmn_radio_answers input', e);
-			QSM.nextPage( quizID );
+			QSM.nextPage( jQuery(this).closest('form').data('quiz-id') );
             if(qmn_ajax_object.enable_quick_result_mc == 1){
                 var question_id = jQuery(this).attr('name').split('question')[1], 
                     value = jQuery(this).val(),

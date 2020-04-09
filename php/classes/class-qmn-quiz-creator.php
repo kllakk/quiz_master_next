@@ -76,7 +76,7 @@ class QMNQuizCreator {
 			array(
 				'quiz_name'                => $quiz_name,
 				'message_before'           => '',
-				'message_after'            => 'Thanks for submitting your response! You can edit this message on the "Results Pages" tab. <br>%CONTACT_ALL% <br>%QUESTIONS_ANSWERS%',
+				'message_after'            => 'Спасибо!',
 				'message_comment'          => 'Please fill in the comment box below.',
 				'message_end_template'     => '',
 				'user_email_template'      => '%QUESTIONS_ANSWERS%',

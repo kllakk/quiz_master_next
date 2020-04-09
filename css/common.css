@@ -97,10 +97,11 @@
 .qsm-page {
     padding: 0 !important;
 }
-
-#qsm-progress-bar {
+.qsm-progress-bar {
     padding: 0 !important;
     height: 5px;
+    position: relative;
+    flex-grow: 2;
 }
 
 .mlw_qmn_message_before {
@@ -147,4 +148,10 @@
     border: 1px solid #bababa;
     border-radius: 5px;
     padding: 10px;
+}
+
+.qsm-results-page pre {
+    text-align: center;
+    font-size: 30px;
+    border: 0;
 }
