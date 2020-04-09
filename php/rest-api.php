@@ -282,6 +282,7 @@ function qsm_rest_get_question( WP_REST_Request $request ) {
 					'hint'       => $question['hints'],
 					'category'   => $question['category'],
 					'required'   => $question['settings']['required'],
+					'ownAnswer'  => $question['settings']['ownAnswer'],
 					'answers'    => $question['answers'],
 					'page'       => $question['page'],
 				);
@@ -364,6 +365,7 @@ function qsm_rest_get_questions( WP_REST_Request $request ) {
 					'required'   => $question['settings']['required'],
 					'answers'    => $question['answers'],
 					'page'       => $question['page'],
+                                        'ownAnswer'   => isset($question['settings']['ownAnswer']) ? $question['settings']['ownAnswer'] : '0',
                                         'answerEditor'   => isset($question['settings']['answerEditor']) ? $question['settings']['answerEditor'] : 'text',
                                         'autofill'   => isset($question['settings']['autofill']) ? $question['settings']['autofill'] : 0,
                                         'limit_text'   => isset($question['settings']['limit_text']) ? $question['settings']['limit_text'] : 0,
@@ -452,6 +454,7 @@ function qsm_rest_create_question( WP_REST_Request $request ) {
 					'category'    => $request['category'],
 				);
 				$settings = array(
+					'ownAnswer' => $request['ownAnswer'],
 					'required' => $request['required'],
                                         'answerEditor' => 'text'
 				);
@@ -549,6 +552,7 @@ function qsm_rest_save_question( WP_REST_Request $request ) {
 					'category'    => $request['category'],
 				);
 				$settings = array(
+					'ownAnswer' => $request['ownAnswer'],
 					'required' => $request['required'],
                                         'answerEditor' => $request['answerEditor'],
                                         'autofill' => $request['autofill'],

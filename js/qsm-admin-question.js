@@ -18,6 +18,7 @@ var import_button;
 				category: '',
 				required: '0',
 				answers: [],
+				ownAnswer: '0',
 				page: 0
 			}
 		}),
@@ -264,6 +265,7 @@ var import_button;
 			var type = $( "#question_type" ).val();
 			var comments = $( "#comments" ).val();
 			var required = $( "#required" ).val();
+			var ownAnswer = $( "#own-answer:checked" ).val() == 1 ? '1' : '0';
 			var category = $( ".category-radio:checked" ).val();
                         var autofill =  $( "#hide_autofill" ).val();
                         var limit_text =  $( "#limit_text" ).val();
@@ -308,6 +310,7 @@ var import_button;
 					hint: hint,
 					category: category,
 					required: required,
+					ownAnswer: ownAnswer,
 					answers: answers,
                                         answerEditor: answerType,
                                         autofill: autofill,
@@ -428,6 +431,7 @@ var import_button;
 			$( "#question_type" ).val( question.get( 'type' ) );
 			$( "#comments" ).val( question.get( 'comments' ) );
 			$( "#required" ).val( question.get( 'required' ) );
+			$( "#own-answer" ).prop( 'checked', question.get( 'ownAnswer' ) == 1 ? true : false );
 			$( "#hide_autofill" ).val( disableAutofill );
 			$( "#limit_text" ).val( get_limit_text );
 			$( "#limit_multiple_response" ).val( get_limit_mr );

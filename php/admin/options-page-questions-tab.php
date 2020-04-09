@@ -170,6 +170,9 @@ function qsm_options_questions_tab_content() {
                                                     </select>
                                                 </label>                             
 					</div>
+                    <div class="qsm-row">
+                        <label for="own-answer">Свой ответ <input type="checkbox" id="own-answer" value="1" /></label>
+                    </div>
                                         <p id="show-advanced-option" style="display: none;">Дополнительные параметры &raquo;</p>
                                         <div class="advanced-content" style="display: none;">
                                             <div id="correct_answer_area" class="qsm-row" style="display: none;">
