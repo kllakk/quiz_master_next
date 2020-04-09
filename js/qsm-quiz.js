@@ -409,7 +409,7 @@ function qmnClearField( field ) {
 
 function qsmScrollTo( $element ) {
         if($element.length > 0){
-            jQuery( 'html, body' ).animate( { scrollTop: $element.offset().top - 150 }, 1000 );
+            //jQuery( 'html, body' ).animate( { scrollTop: $element.offset().top - 150 }, 1000 );
         }
 }
 
