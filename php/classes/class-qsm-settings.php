@@ -357,9 +357,12 @@ class QSM_Quiz_Settings {
           'next_button_text' => $pagination_text[1],
   				'require_log_in_text' => $quiz_options->require_log_in_text,
   				'limit_total_entries_text' => $quiz_options->limit_total_entries_text,
-  				'scheduled_timeframe_text' => $quiz_options->scheduled_timeframe_text
+  				'scheduled_timeframe_text' => $quiz_options->scheduled_timeframe_text,
+	            'contact_form' => QSM_Contact_Manager::$defaultContacts
         ) );
       }
+
+      $settings_array["contact_form"] = serialize(QSM_Contact_Manager::$defaultContacts);
 
       // Update new settings system
       $serialized_array = serialize( $settings_array );

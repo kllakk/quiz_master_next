@@ -13,6 +13,20 @@ class QSM_Contact_Manager {
 	/** @var array The fields loaded for the quiz. */
 	private static $fields = array();
 
+	public static $defaultContacts = array(
+		array(
+			'label' => 'Имя',
+			'use' => 'name',
+			'type' => 'text',
+			'required' => 'true',
+		),
+		array(
+			'label' => 'Телефон',
+			'use' => 'phone',
+			'type' => 'text',
+			'required' => 'true',
+		)
+	);
 
 	/**
 	 * Displays the contact fields during form
