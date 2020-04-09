@@ -116,7 +116,7 @@ class QSM_Contact_Manager {
 			}
 		} elseif ( ! empty( $fields ) && is_array( $fields ) ) {
 
-			// Cycle through each of the contact fields.                       
+			// Cycle through each of the contact fields.
 			$total_fields = count( $fields );
 			for ( $i = 0; $i < $total_fields; $i++ ) {
 
@@ -142,7 +142,7 @@ class QSM_Contact_Manager {
                                                             $class = 'mlwRequiredNumber qsm_required_text';
                                                         }
 							?>
-							<span class='mlw_qmn_question qsm_question'><?php echo $fields[ $i ]['label']; ?></span>
+							<!-- <span class='mlw_qmn_question qsm_question'><?php echo $fields[ $i ]['label']; ?></span> -->
                                                         <input <?php if($contact_disable_autofill){ echo "autocomplete='off'"; } ?> type='<?php echo $fields[ $i ]['use'] == 'phone' ? 'number' : 'text'; ?>' class='<?php echo esc_attr( $class ); ?>' x-webkit-speech name='contact_field_<?php echo $i; ?>' value='<?php echo esc_attr( $value ); ?>' placeholder="<?php echo $fields[ $i ]['label']; ?>" />
 							<?php
 							break;
@@ -152,7 +152,7 @@ class QSM_Contact_Manager {
 								$class = 'mlwRequiredText qsm_required_text';
 							}
 							?>
-							<span class='mlw_qmn_question qsm_question'><?php echo $fields[ $i ]['label']; ?></span>
+							<!-- <span class='mlw_qmn_question qsm_question'><?php echo $fields[ $i ]['label']; ?></span> -->
                                                         <input <?php if($contact_disable_autofill){ echo "autocomplete='off'"; } ?> type='text' class='mlwEmail <?php echo esc_attr( $class ); ?>' x-webkit-speech name='contact_field_<?php echo $i; ?>' value='<?php echo esc_attr( $value ); ?>' placeholder="<?php echo $fields[ $i ]['label']; ?>" />
 							<?php
 							break;

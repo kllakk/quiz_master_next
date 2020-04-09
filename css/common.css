@@ -95,7 +95,7 @@
 }
 
 .qsm-page {
-    padding: 0 !important;
+    padding: 3rem 0 !important;
 }
 .qsm-progress-bar {
     padding: 0 !important;
@@ -157,4 +157,22 @@
     border: 0;
     padding: 100px 0;
     margin: 0;
+}
+
+.qsm_contact_div {
+    text-align: center;
+}
+
+.qsm-after-message {
+    text-align: center;
+    font-weight: 500;
+    font-size: 25px;
+}
+
+.qsm_contact_div select,
+.qsm_contact_div textarea,
+.qsm_contact_div input[type="text"],
+.qsm_contact_div input[type="email"],
+.qsm_contact_div input[type="number"] {
+    max-width: 300px;
 }

@@ -78,7 +78,7 @@ class QMNQuizCreator {
 				'message_before'           => '',
 				'message_after'            => 'Спасибо!',
 				'message_comment'          => 'Please fill in the comment box below.',
-				'message_end_template'     => '',
+				'message_end_template'     => 'Отлично!<br />Оставьте контактный телефон и мы сообщим Вам результаты!',
 				'user_email_template'      => '%QUESTIONS_ANSWERS%',
 				'admin_email_template'     => 'Клиент: %USER_NAME%<br />Телефон: %USER_PHONE%<br /><br />Опрос: %QUIZ_NAME%<br />Дата: %CURRENT_DATE%<br />%QUESTIONS_ANSWERS%',
 				'submit_button_text'       => 'Submit',
