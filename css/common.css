@@ -130,11 +130,21 @@
     text-decoration: none;
 }
 
+.qmn_check_answers,
 .qmn_radio_answers  {
     display: flex;
     flex-wrap: wrap;
 }
 
+.qmn_check_answers input[type=checkbox] {
+    margin-right: 5px;
+}
+
+.qmn_check_answers input[type=checkbox]:focus {
+    outline: 0;
+}
+
+.qsm_check_answer,
 .qmn_mc_answer_wrap {
     flex: 0 0 50%;
     max-width: 50%;
