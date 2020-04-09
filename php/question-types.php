@@ -117,12 +117,12 @@ function qmn_multiple_choice_display($id, $question, $answers)
       if ($answer[0] != "")
       {
         if($answerEditor === 'rich'){
-            $question_display .= "<div class='qmn_mc_answer_wrap' id='question$id-$mlw_answer_total'>";
+            $question_display .= "<label for='question".$id."_".$mlw_answer_total."' class='qmn_mc_answer_wrap' id='question$id-$mlw_answer_total'><div>";
         }else{
-            $question_display .= "<div class='qmn_mc_answer_wrap' id='question".$id."-".esc_attr($answer[0])."'>";
+            $question_display .= "<label for='question".$id."_".$mlw_answer_total."' class='qmn_mc_answer_wrap' id='question".$id."-".esc_attr($answer[0])."'><div class='qmn_mc_answer_answer_border'>";
         }	
-        $question_display .= "<input type='radio' class='qmn_quiz_radio' name='question".$id."' id='question".$id."_".$mlw_answer_total."' value='". trim( htmlentities(esc_attr($answer[0])) ) ."' /> <label for='question".$id."_".$mlw_answer_total."'>". trim( htmlspecialchars_decode($answer[0], ENT_QUOTES) ) ."</label>";
-	$question_display .= "</div>";
+        $question_display .= "<input type='radio' class='qmn_quiz_radio' name='question".$id."' id='question".$id."_".$mlw_answer_total."' value='". trim( htmlentities(esc_attr($answer[0])) ) ."' /> <span>". trim( htmlspecialchars_decode($answer[0], ENT_QUOTES) ) ."</span>";
+	$question_display .= "</div></label>";
       }
     }
     $question_display .= "<input type='radio' style='display: none;' name='question".$id."' id='question".$id."_none' checked='checked' value='No Answer Provided' />";

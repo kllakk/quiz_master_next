@@ -128,3 +128,23 @@
 .qsm-hint {
     text-decoration: none;
 }
+
+.qmn_radio_answers  {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.qmn_mc_answer_wrap {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin: 7px 0 7px 0 !important;
+    display: block !important;
+}
+
+.qmn_mc_answer_answer_border {
+    border: 1px solid #bababa;
+    border-radius: 5px;
+    padding: 10px;
+}
