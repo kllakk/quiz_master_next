@@ -860,9 +860,17 @@ jQuery(function() {
                 }
             });
         });
-        
-        jQuery(document).on('change','.qmn_radio_answers input',function(e){
-			QSM.nextPage( jQuery(this).closest('form').data('quiz-id') );
+
+        jQuery(document).on('keypress','.own-answer',function(e){
+        	var element = jQuery(this).prev();
+			element.prop('checked', true);
+			element.val(jQuery(this).val());
+		});
+
+        jQuery(document).on('change','.qmn_radio_answers input[type="radio"]',function(e){
+        	if (jQuery(this).data('own') != 1) {
+				QSM.nextPage(jQuery(this).closest('form').data('quiz-id'));
+			}
             if(qmn_ajax_object.enable_quick_result_mc == 1){
                 var question_id = jQuery(this).attr('name').split('question')[1], 
                     value = jQuery(this).val(),

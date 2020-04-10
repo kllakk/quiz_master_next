@@ -114,14 +114,23 @@ function qmn_multiple_choice_display($id, $question, $answers)
     foreach($answers as $answer)
     {
       $mlw_answer_total++;
-      if ($answer[0] != "")
+
+      $own = $answer[3] == 1 ? true : false; // Свой ответ
+
+      if ($answer[0] != "" || $own)
       {
         if($answerEditor === 'rich'){
             $question_display .= "<label for='question".$id."_".$mlw_answer_total."' class='qmn_mc_answer_wrap' id='question$id-$mlw_answer_total'><div>";
         }else{
             $question_display .= "<label for='question".$id."_".$mlw_answer_total."' class='qmn_mc_answer_wrap' id='question".$id."-".esc_attr($answer[0])."'><div class='qmn_mc_answer_answer_border'>";
-        }	
-        $question_display .= "<input type='radio' class='qmn_quiz_radio' name='question".$id."' id='question".$id."_".$mlw_answer_total."' value='". trim( htmlentities(esc_attr($answer[0])) ) ."' /> <span>". trim( htmlspecialchars_decode($answer[0], ENT_QUOTES) ) ."</span>";
+        }
+
+        $question_display .= "<input data-own='" . $own . "' type='radio' class='qmn_quiz_radio' name='question" . $id . "' id='question" . $id . "_" . $mlw_answer_total . "' value='" . trim( htmlentities( esc_attr( $answer[0] ) ) ) . "' /> ";
+        if ($own) {
+	        $question_display .= "<input class='own-answer' type='text' value='' placeholder='" . trim( htmlspecialchars_decode( $answer[0] ?: 'Свой вариант', ENT_QUOTES ) ) . "' />";
+        } else {
+	        $question_display .= "<span>" . trim( htmlspecialchars_decode( $answer[0], ENT_QUOTES ) ) . "</span>";
+        }
 	$question_display .= "</div></label>";
       }
     }
@@ -544,12 +553,23 @@ function qmn_multiple_response_display($id, $question, $answers)
     foreach($answers as $answer)
     {
       $mlw_answer_total++;
-      if ($answer[0] != "")
+
+      $own = $answer[3] == 1 ? true : false; // Свой ответ
+
+      if ($answer[0] != "" || $own)
       {
-				$question_display .= '<label for="question'.$id.'_'.$mlw_answer_total.'" class="qsm_check_answer"><div class="qmn_mc_answer_answer_border">';
-        $question_display .= "<input type='hidden' name='question".$id."' value='This value does not matter' />";
-        $question_display .= "<input type='checkbox' " . $limit_mr_text ." name='question".$id."_".$mlw_answer_total."' id='question".$id."_".$mlw_answer_total."' value='".esc_attr($answer[0])."' /> <span>".htmlspecialchars_decode($answer[0], ENT_QUOTES)."</span>";
-				$question_display .= '</div></label>';
+		$question_display .= '<label for="question'.$id.'_'.$mlw_answer_total.'" class="qsm_check_answer"><div class="qmn_mc_answer_answer_border">';
+
+        //$question_display .= "<input type='hidden' name='question".$id."' value='This value does not matter' />";
+        $question_display .= "<input type='checkbox' " . $limit_mr_text ." name='question".$id."_".$mlw_answer_total."' id='question".$id."_".$mlw_answer_total."' value='".esc_attr($answer[0])."' /> ";
+		if ($own) {
+			$question_display .= "<input class='own-answer' type='text' value='' placeholder='" . trim( htmlspecialchars_decode( $answer[0] ?: 'Свой вариант', ENT_QUOTES ) ) . "' />";
+        } else {
+			$question_display .= "<span>".htmlspecialchars_decode($answer[0], ENT_QUOTES)."</span>";
+        }
+
+
+        $question_display .= '</div></label>';
       }
     }
   }

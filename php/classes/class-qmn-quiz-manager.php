@@ -1371,6 +1371,22 @@ class QMNQuizManager {
                                     $correct_status = "correct";
                                 }
                                 $user_answer = $results_array["user_text"];
+
+                                switch ($question['question_type_new']) {
+	                                case '0': // radio
+		                                $user_answer = sanitize_textarea_field( $_POST["question" . $question_id] );
+		                                break;
+                                    case '4': // check
+                                        $values = array();
+                                        foreach ($_POST as $arg => $value) {
+	                                        if (preg_match("/^question" . $question_id . "(_\d)?$/i", $arg, $matches)) {
+		                                        $values [] = $value;
+	                                        }
+                                        }
+	                                    $user_answer = implode(', ', $values);
+                                        break;
+                                }
+
                                 $correct_answer = $results_array["correct_text"];
 
                                 // If a comment was submitted

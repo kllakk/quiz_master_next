@@ -157,7 +157,13 @@
 .qmn_mc_answer_answer_border {
     border: 1px solid #bababa;
     border-radius: 5px;
-    padding: 10px;
+    padding: 5px 10px;
+}
+
+.qmn_mc_answer_answer_border span {
+    display: inline-block;
+    min-height: 35px;
+    padding: 7px 0;
 }
 
 .qsm-results-page,
@@ -185,4 +191,14 @@
 .qsm_contact_div input[type="email"],
 .qsm_contact_div input[type="number"] {
     max-width: 300px;
+}
+
+.own-answer {
+    box-shadow: none !important;
+    border-top: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid #bababa !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
 }
