@@ -861,7 +861,7 @@ jQuery(function() {
             });
         });
 
-        jQuery(document).on('keypress','.own-answer',function(e){
+        jQuery(document).on('keyup','.own-answer',function(e){
         	var element = jQuery(this).prev();
 			element.prop('checked', true);
 			element.val(jQuery(this).val());
