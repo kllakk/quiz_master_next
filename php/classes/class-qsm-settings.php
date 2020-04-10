@@ -433,6 +433,26 @@ class QSM_Quiz_Settings {
 		// Return as old object model
 		return (object) $quiz_options;
 	}
+
+	/**
+	 * Loads the old object model of options for backwards compatibility
+	 *
+	 * @since 5.0.0
+	 */
+	public function get_quiz_conditions() {
+		global $wpdb;
+
+		$prepared = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}mlw_conditions WHERE quiz_id=%d", $this->quiz_id );
+		$quiz_conditions = $wpdb->get_results($prepared, ARRAY_A);
+
+		if ($quiz_conditions) {
+			foreach ( $quiz_conditions as &$question ) {
+				$question['condition_array'] = unserialize($question['condition_array']);
+			}
+		}
+
+		return $quiz_conditions;
+	}
 }
 
 ?>

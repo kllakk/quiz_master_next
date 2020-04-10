@@ -211,6 +211,7 @@ class QMNQuizManager {
 
             $return_display = '';
             $qmn_quiz_options = $mlwQuizMasterNext->quiz_settings->get_quiz_options();
+            $qmn_quiz_conditions = $mlwQuizMasterNext->quiz_settings->get_quiz_conditions();
 
             // If quiz options isn't found, stop function.
             if (is_null($qmn_quiz_options) || empty($qmn_quiz_options->quiz_name)) {
@@ -272,6 +273,8 @@ class QMNQuizManager {
             }
 
             $qmn_filtered_json = apply_filters('qmn_json_data', $qmn_json_data, $qmn_quiz_options, $qmn_array_for_variables);
+
+	        $qmn_json_data['conditions'] = $qmn_quiz_conditions;
 
             $return_display .= '<script>
                             window.qmn_quiz_data["' . $qmn_json_data["quiz_id"] . '"] = ' . json_encode($qmn_json_data) . '

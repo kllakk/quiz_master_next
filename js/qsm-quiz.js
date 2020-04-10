@@ -279,16 +279,75 @@ var QSM;
 				});
 			}			
 		},
+		acceptConditions: function( quizID, pageNumber ) {
+			var $quizForm = QSM.getQuizForm( quizID );
+			var pageCurrent = $quizForm.children( '.qsm-page:nth-of-type(' + pageNumber + ')' );
+
+			// применение условий
+			var conditionsResult = [];
+			var questions = pageCurrent.find('[class*="question-section-id-"]');
+			questions.each(function() {
+				var matches = jQuery(this).attr('class').match(/question-section-id-(\d)/);
+				var questionId = matches[1];
+				var conditions = QSM.conditions(quizID);
+				for (const idx in conditions) {
+					if (conditions[idx].question_id == questionId) {
+						var condition_array = conditions[idx].condition_array;
+						for (const idxa in condition_array) {
+
+							var conditionResult = false;
+							var relationQuestionId = condition_array[idxa][0];
+							var conditionType = condition_array[idxa][1];
+							var conditionValue = condition_array[idxa][2];
+							var relationQuestionSection = $quizForm.find('[class*="question-section-id-' + relationQuestionId + '"]');
+							var relationQuestion =
+								relationQuestionSection.find(
+									'input[name^="question"][type="radio"]:checked, ' +
+									'input[name^="question"][type="checkbox"]:checked, ' +
+									'input[name^="question"][type="text"], ' +
+									'input[name^="question"][type="number"]'
+								);
+
+							relationQuestion.each(function () {
+								var value = jQuery(this).val();
+								//console.log(value, conditionType, conditionValue);
+								switch (conditionType) {
+									case 'equal':
+										if (value == conditionValue) {
+											conditionResult = true;
+										}
+										break;
+									case 'not-equal':
+										if (value != conditionValue) {
+											conditionResult = true;
+										}
+										break;
+								}
+							});
+
+							conditionsResult.push(conditionResult);
+						}
+					}
+				}
+			});
+
+			return jQuery.inArray( false, conditionsResult ) == -1;
+		},
+		conditions: function( quizID ) {
+			return window.qmn_quiz_data[quizID].conditions;
+		},
 		/**
 		 * Navigates quiz to specific page
 		 *
 		 * @param int pageNumber The number of the page
 		 */
-		goToPage: function( quizID, pageNumber ) {
+		goToPage: function( quizID, pageNumber, difference ) {
 			var $quizForm = QSM.getQuizForm( quizID );
 			var $pages = $quizForm.children( '.qsm-page' );
 			$pages.hide();
-			$quizForm.children( '.qsm-page:nth-of-type(' + pageNumber + ')' ).show();
+
+			var pageCurrent = $quizForm.children( '.qsm-page:nth-of-type(' + pageNumber + ')' );
+
 			$quizForm.find( '.qsm-previous' ).hide();
 			$quizForm.find( '.qsm-next' ).hide();
 			$quizForm.find( '.qsm-submit-btn' ).hide();
@@ -300,10 +359,19 @@ var QSM;
 			if ( 1 < pageNumber ) {
 				$quizForm.find( '.qsm-previous' ).show();
 			}
-			if ( '1' == qmn_quiz_data[ quizID ].progress_bar ) {
-				qmn_quiz_data[ quizID ].bar.animate( (pageNumber - 1) / $pages.length );
-			}
+
 			QSM.savePage( quizID, pageNumber );
+
+			var results = QSM.acceptConditions( quizID, pageNumber );
+
+			if (!results) {
+				QSM.changePage(quizID, difference);
+			} else {
+				if ( '1' == qmn_quiz_data[ quizID ].progress_bar ) {
+					qmn_quiz_data[ quizID ].bar.animate( (pageNumber - 1) / $pages.length );
+				}
+				pageCurrent.show();
+			}
 		},
 		/**
 		 * Moves forward or backwards through the pages
@@ -314,7 +382,7 @@ var QSM;
 		changePage: function( quizID, difference ) {
 			var page = QSM.getPage( quizID );
 			page += difference;
-			QSM.goToPage( quizID, page );
+			QSM.goToPage( quizID, page, difference );
 		},
 		nextPage: function( quizID ) {
 			if ( qmnValidatePage( 'quizForm' + quizID ) ) {
@@ -517,7 +585,7 @@ function getFormData($form){
 function qmnFormSubmit( quiz_form_id ) {
 	var quiz_id = +jQuery( '#' + quiz_form_id ).find( '.qmn_quiz_id' ).val();
 	var $container = jQuery( '#' + quiz_form_id ).closest( '.qmn_quiz_container' );
-	var result = qmnValidation( '#' + quiz_form_id + ' *', quiz_form_id );
+	var result = true;// qmnValidation( '#' + quiz_form_id + ' *', quiz_form_id );
 	/**
 	 * Update Timer in MS
 	 */
