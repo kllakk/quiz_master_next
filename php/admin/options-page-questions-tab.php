@@ -157,7 +157,8 @@ function qsm_options_questions_tab_content() {
 					</div>
 					<div class="qsm-row">
 						<label><?php _e( 'Answers', 'quiz-master-next' ); ?></label>
-						<div class="correct-header"><?php _e( 'Correct', 'quiz-master-next' ); ?></div>
+						<!-- <div class="correct-header"><?php _e( 'Correct', 'quiz-master-next' ); ?></div>-->
+						<div class="correct-header">Свой</div>
 						<div class="answers" id="answers">
 
 						</div>
@@ -171,7 +172,7 @@ function qsm_options_questions_tab_content() {
                                                 </label>                             
 					</div>
                     <div class="qsm-row">
-                        <label for="own-answer">Свой ответ <input type="checkbox" id="own-answer" value="1" /></label>
+                        <label for="own-answer" style="display: none">Свой ответ <input type="checkbox" id="own-answer" value="1" /></label>
                     </div>
                                         <p id="show-advanced-option" style="display: none;">Дополнительные параметры &raquo;</p>
                                         <div class="advanced-content" style="display: none;">
@@ -347,7 +348,8 @@ function qsm_options_questions_tab_content() {
                             <# } #>                                                        
                         </div>
 			<div><input type="text" class="answer-points" value="{{data.points}}" placeholder="Баллы"/></div>
-			<div><input type="checkbox" class="answer-correct" value="1" <# if ( 1 == data.correct ) { #> checked="checked"/> <# } #></div>
+			<!--<div><input type="checkbox" class="answer-correct" value="1" <# if ( 1 == data.correct ) { #> checked="checked"/> <# } #></div>-->
+			<div><input type="radio" name="own[]" class="answer-own" value="1" <# if ( 1 == data.own ) { #> checked="checked"/> <# } #></div>
 		</div>
 	</script>
 

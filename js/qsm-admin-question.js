@@ -299,7 +299,11 @@ var import_button;
 				if ( $answer.find( '.answer-correct' ).prop( 'checked' ) ) {
 					correct = 1;
 				}
-				answers.push( [ answer, points, correct ] );
+				var own = 0;
+				if ( $answer.find( '.answer-own' ).prop( 'checked' ) ) {
+					own = 1;
+				}
+				answers.push( [ answer, points, correct, own ] );
 			});                   
 			model.save( 
 				{ 
@@ -338,7 +342,15 @@ var import_button;
 		addNewAnswer: function( answer ) {
                         
 			var answerTemplate = wp.template( 'single-answer' );                        
-			$( '#answers' ).append( answerTemplate( { answer: decodeEntities( answer[0] ), points: answer[1], correct: answer[2], count: answer[3], question_id: answer[4], answerType: answer[5] } ) );
+			$( '#answers' ).append( answerTemplate( {
+				answer: decodeEntities( answer[0] ),
+				points: answer[1],
+				correct: answer[2],
+				own: answer[3],
+				count: answer[4],
+				question_id: answer[5],
+				answerType: answer[6] } )
+			);
                         if(answer[5] == 'rich' && qsmQuestionSettings.qsm_user_ve === 'true'){
                             var textarea_id = 'answer-' + answer[4] + '-' + answer[3];
                             wp.editor.remove( textarea_id );
@@ -525,7 +537,7 @@ var import_button;
                         }
                         var question_id = $('#edit_question_id').val();
                         var answerType = $('#change-answer-editor').val();
-			var answer = [ '', '', 0, answer_length + 1, question_id, answerType];
+			var answer = [ '', '', 0, 0, answer_length + 1, question_id, answerType];
 			QSMQuestion.addNewAnswer( answer );                        
 		});
                 

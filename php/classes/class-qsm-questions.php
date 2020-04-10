@@ -256,6 +256,7 @@ class QSM_Questions {
 				htmlspecialchars( $answer[0], ENT_QUOTES ),
 				floatval( $answer[1] ),
 				intval( $answer[2] ),
+				intval( $answer[3] ),
 			);
 		}
 
