@@ -134,7 +134,7 @@ var QSMCondition;
                 };
             });
 
-            console.log(questions);
+            //console.log(questions);
 
             $( '#conditions' ).append( conditionTemplate( {
                 index: index,
@@ -147,7 +147,7 @@ var QSMCondition;
                 question_id: conditionQuestionId }) );
 
             $( '.question_related_id[data-index=' + index + ']' ).on( 'change', function( event ) {
-                console.log(event);
+                //console.log(event);
                 var select = $(this).closest('.conditions-single').find('select.condition_value');
                 var questionId = $(this).val();
                 select.find("option[value!='']").remove();
@@ -155,12 +155,19 @@ var QSMCondition;
                     var filtered = _.filter(questions, function (question) {
                         return question.value == questionId;
                     });
-                    console.log(filtered);
                     var question = _.first(filtered);
                     var answers = question.answers;
 
                     for (var i = 0; i < answers.length; i++) {
-                        select.append('<option data-t1="' + question.selected_question + '" data-t2="' + question.selected_answer + '" ' + (answers[i].selected ? 'selected' : '') + ' value="' + answers[i].value + '">' + answers[i].name + '</option>');
+                        if (answers[i].value) {
+                            var elem = $('<div/>').html($("<textarea/>").html(answers[i].name).text());
+                            var img = elem.find('img');
+                            var label = (img.length ? elem.text() + ' ' + img.attr('src') : answers[i].name).trim();
+                            select.append(
+                                '<option ' + (answers[i].selected ? 'selected' : '') + ' value="' + answers[i].value + '">' +
+                                label +
+                                '</option>');
+                        }
                     }
                 }
             });
