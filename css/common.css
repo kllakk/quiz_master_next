@@ -202,3 +202,7 @@
     border-radius: 0 !important;
     padding: 0 !important;
 }
+
+.qmn_mc_answer_wrap img {
+    margin: 0 !important;
+}

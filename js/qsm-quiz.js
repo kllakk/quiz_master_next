@@ -370,6 +370,9 @@ var QSM;
 				if ( '1' == qmn_quiz_data[ quizID ].progress_bar ) {
 					qmn_quiz_data[ quizID ].bar.animate( (pageNumber - 1) / $pages.length );
 				}
+				if (pageCurrent.find('img').length) {
+					pageCurrent.find('input[type="checkbox"], input[type="radio"]').hide();
+				}
 				pageCurrent.show();
 			}
 		},
