@@ -203,6 +203,27 @@
     padding: 0 !important;
 }
 
+.qmn_check_answers img,
 .qmn_mc_answer_wrap img {
     margin: 0 !important;
+}
+
+.answer-checked {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10px 25px;
+    font-size: 30px;
+    color: #2aaaff;
+}
+
+.qsm_check_answer .qmn_mc_answer_answer_border {
+    position: relative;
+}
+
+.qmn_check_answers input:checked + .answer-checked {
+    display: block;
 }

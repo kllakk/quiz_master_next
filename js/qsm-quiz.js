@@ -287,7 +287,7 @@ var QSM;
 			var conditionsResult = [];
 			var questions = pageCurrent.find('[class*="question-section-id-"]');
 			questions.each(function() {
-				var matches = jQuery(this).attr('class').match(/question-section-id-(\d)/);
+				var matches = jQuery(this).attr('class').match(/question-section-id-(\d+)/);
 				var questionId = matches[1];
 				var conditions = QSM.conditions(quizID);
 				for (const idx in conditions) {
@@ -370,7 +370,7 @@ var QSM;
 				if ( '1' == qmn_quiz_data[ quizID ].progress_bar ) {
 					qmn_quiz_data[ quizID ].bar.animate( (pageNumber - 1) / $pages.length );
 				}
-				if (pageCurrent.find('img').length) {
+				if (pageCurrent && pageCurrent.find('img').length) {
 					pageCurrent.find('input[type="checkbox"], input[type="radio"]').hide();
 				}
 				pageCurrent.show();
