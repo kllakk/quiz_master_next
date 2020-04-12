@@ -351,8 +351,8 @@ var import_button;
 				question_id: answer[5],
 				answerType: answer[6] } )
 			);
-                        if(answer[5] == 'rich' && qsmQuestionSettings.qsm_user_ve === 'true'){
-                            var textarea_id = 'answer-' + answer[4] + '-' + answer[3];
+                        if(answer[6] == 'rich' && qsmQuestionSettings.qsm_user_ve === 'true'){
+                            var textarea_id = 'answer-' + answer[5] + '-' + answer[4];
                             wp.editor.remove( textarea_id );
                             var settings = {
                                 mediaButtons: true,
