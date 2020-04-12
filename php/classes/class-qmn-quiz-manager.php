@@ -1383,11 +1383,16 @@ class QMNQuizManager {
                                         $values = array();
                                         foreach ($_POST as $arg => $value) {
 	                                        if (preg_match("/^question" . $question_id . "(_\d)?$/i", $arg, $matches)) {
-		                                        $values [] = $value;
+		                                        $values [] = sanitize_textarea_field($value);
 	                                        }
                                         }
 	                                    $user_answer = implode(', ', $values);
                                         break;
+                                }
+
+                                // изображения в емейл
+                                if (preg_match('/< *img[^>]*src *= *["\']?([^"\']*)/i', html_entity_decode($user_answer), $matches)) {
+	                                $user_answer = html_entity_decode($user_answer);
                                 }
 
                                 $correct_answer = $results_array["correct_text"];
