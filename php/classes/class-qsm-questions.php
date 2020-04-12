@@ -12,6 +12,8 @@
  */
 class QSM_Questions {
 
+	const OWN_VARIANT_TEXT = 'Свой вариант';
+
 	/**
 	 * Loads single question using question ID
 	 *
@@ -253,7 +255,7 @@ class QSM_Questions {
 
 		foreach ( $answers as $key => $answer ) {
 			$answers[ $key ] = array(
-				htmlspecialchars( $answer[0], ENT_QUOTES ),
+				$answer[0] ? htmlspecialchars( $answer[0], ENT_QUOTES ) : QSM_Questions::OWN_VARIANT_TEXT,
 				floatval( $answer[1] ),
 				intval( $answer[2] ),
 				intval( $answer[3] ),
