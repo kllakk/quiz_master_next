@@ -227,3 +227,7 @@
 .qmn_check_answers input:checked + .answer-checked {
     display: block;
 }
+
+.qsm-quiz-container {
+    text-align: left;
+}
