@@ -290,8 +290,11 @@ class QMNQuizManager {
             $target_html = "target='" . esc_attr($target) . "'";
         }
 
+	    global $quizes;
+	    $quizes[$quiz]++;
+
         $return_display =
-            '<div class="quiz-modal"><div class="quiz-modal-content"><span class="quiz-modal-close">&times;</span>' . $return_display . '</div></div>' .
+            ($quizes[$quiz] == 1 ? '<div data-quiz-id="' . $quiz . '" class="quiz-modal"><div class="quiz-modal-content"><span class="quiz-modal-close">&times;</span>' . $return_display . '</div></div>' : '') .
             "<a href='#' style='" . $style . "' data-quiz-id='" . $quiz . "' class='" . esc_attr($class) . "' $target_html>" . $content . "</a>";
 
         return $return_display;

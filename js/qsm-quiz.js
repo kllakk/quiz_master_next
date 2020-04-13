@@ -217,7 +217,8 @@ var QSM;
 
 				$( '.qsm-modal-button' ).on( 'click', function( event ) {
 					event.preventDefault();
-					$(this).parent().find(".quiz-modal").show();
+					var id = $(this).data('quiz-id');
+					$('.quiz-modal[data-quiz-id="' + id + '"]').show();
 				});
 
 				$( '.quiz-modal-close' ).on( 'click', function( event ) {
