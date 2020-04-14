@@ -220,6 +220,11 @@
     color: #2aaaff;
 }
 
+.qsm-results-page img.emoji,
+.answer-checked img.emoji {
+    filter: saturate(55);
+}
+
 .qsm_check_answer .qmn_mc_answer_answer_border {
     position: relative;
 }
