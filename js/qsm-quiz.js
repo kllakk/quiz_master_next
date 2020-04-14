@@ -371,8 +371,12 @@ var QSM;
 				if ( '1' == qmn_quiz_data[ quizID ].progress_bar ) {
 					qmn_quiz_data[ quizID ].bar.animate( (pageNumber - 1) / $pages.length );
 				}
-				if (pageCurrent && pageCurrent.find('img').length) {
-					pageCurrent.find('input[type="checkbox"], input[type="radio"]').hide();
+				if (pageCurrent) {
+					if (pageCurrent.find('img:not([class="emoji"])').length) {
+						pageCurrent.find('input[type="checkbox"], input[type="radio"]').hide();
+					} else {
+						pageCurrent.find('.answer-checked').hide();
+					}
 				}
 				pageCurrent.show();
 			}

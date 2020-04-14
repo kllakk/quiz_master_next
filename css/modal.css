@@ -17,12 +17,20 @@
 /* Modal Content/Box */
 .quiz-modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 10% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
-    max-width: 1200px;
+    max-width: 920px;
     min-height: 290px;
+}
+
+@media all and (max-width: 800px) {
+    .quiz-modal-content {
+        margin: 0 auto; /* 15% from the top and centered */
+        width: 100%; /* Could be more or less, depending on screen size */
+        min-height: 100%;
+    }
 }
 
 /* The Close Button */
