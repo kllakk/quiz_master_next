@@ -177,6 +177,7 @@
     display: block;
     font-size: 16px;
     margin-left: 7px;
+    line-height: 1.5;
 }
 
 .qsm-results-page,
@@ -297,7 +298,6 @@
 
 .has-image .qmn_mc_answer_answer_border span {
     margin-left: 0;
-    line-height: 1.5;
 }
 
 .quiz_section {
