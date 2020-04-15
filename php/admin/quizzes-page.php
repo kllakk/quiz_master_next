@@ -463,9 +463,9 @@ function qsm_generate_quizzes_surveys_page() {
 					</div>
 				</td>
 				<td>
-                                        <p class="sc-opener"><span class="dashicons dashicons-editor-contract"></span> Embed</p>
-                                        <div class="sc-content">[qsm quiz={{ data.id }}]</div>
-                                        <p class="sc-opener"><span class="dashicons dashicons-admin-links"></span> Link</p>
+                                        <p class="sc-opener"><span class="dashicons dashicons-editor-contract"></span> Раздельно</p>
+                                        <div class="sc-content">[qsm_link_modal style="display:none" quiz={{ data.id }}][/qsm_link_modal]<?= htmlentities('<a href="#" data-quiz-id="{{ data.id }}" class="qsm-modal-button">' . __( 'Click here', 'quiz-master-next' ) . '</a>') ?></div>
+                                        <p class="sc-opener"><span class="dashicons dashicons-admin-links"></span> Ссылка</p>
                                         <div class="sc-content">[qsm_link_modal quiz={{ data.id }}]<?php _e( 'Click here', 'quiz-master-next' ); ?>[/qsm_link_modal]</div>
                                 </td>
 				<td>
