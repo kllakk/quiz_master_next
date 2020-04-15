@@ -266,3 +266,13 @@
     content: "";
     clear: both;
 }
+
+.qsm-progress-percents {
+    color: #2980b9;
+    font-size: 14px;
+}
+
+.qsm-progress-percents .percents-text {
+    font-weight: bold;
+    font-size: 16px;
+}

@@ -740,6 +740,7 @@ class QMNQuizManager {
             ?>
             <div class="clear-fix"></div>
             <div class="qsm-progress-bar" style="display:none;"></div>
+            <div class="qsm-progress-percents" style="display:none;">Готово: <span class="percents-text"><span class="percents-value">0</span>%</span></div>
             <section class="qsm-page <?php echo $animation_effect; ?>">
                 <?php
                 if (!empty($options->message_before) || ( 0 == $options->contact_info_location && $contact_fields )) {
@@ -810,7 +811,9 @@ class QMNQuizManager {
             $pages_count = 1;
             ?>
             <div class="clear-fix"></div>
-            <div class="qsm-progress-bar" style="display:none;"></div><?php
+            <div class="qsm-progress-percents" style="display:none;">Готово: <span class="percents-text"><span class="percents-value">0</span>%</span></div>
+            <div class="qsm-progress-bar" style="display:none;"></div>
+            <?php
             foreach ($pages as $page) {
                 ?>
                 <section class="qsm-page <?php echo $animation_effect; ?>">

@@ -239,7 +239,9 @@ var QSM;
 				$quizForm.append( template() );
 				if ( '1' == qmn_quiz_data[ quizID ].progress_bar ) {
 					var bar = $quizForm.find( '.qsm-progress-bar' );
+					var percents = $quizForm.find( '.qsm-progress-percents' );
 					bar.show();
+					percents.show();
 					qmn_quiz_data[ quizID ].bar = new ProgressBar.Line(bar.selector, {
 						strokeWidth: 2,
 						easing: 'easeInOut',
@@ -370,6 +372,7 @@ var QSM;
 			} else {
 				if ( '1' == qmn_quiz_data[ quizID ].progress_bar ) {
 					qmn_quiz_data[ quizID ].bar.animate( (pageNumber - 1) / $pages.length );
+					$quizForm.find('.qsm-progress-percents .percents-value').html( Math.round((pageNumber - 1) / $pages.length * 100));
 				}
 				if (pageCurrent) {
 					if (pageCurrent.find('img:not([class="emoji"])').length) {
