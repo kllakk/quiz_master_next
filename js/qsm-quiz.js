@@ -375,7 +375,9 @@ var QSM;
 					$quizForm.find('.qsm-progress-percents .percents-value').html( Math.round((pageNumber - 1) / $pages.length * 100));
 				}
 				if (pageCurrent) {
+					pageCurrent.removeClass('has-image');
 					if (pageCurrent.find('img:not([class="emoji"])').length) {
+						pageCurrent.addClass('has-image');
 						pageCurrent.find('input[type="checkbox"], input[type="radio"]').hide();
 					} else {
 						pageCurrent.find('.answer-checked').hide();

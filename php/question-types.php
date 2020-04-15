@@ -120,7 +120,7 @@ function qmn_multiple_choice_display($id, $question, $answers)
       if ($answer[0] != "" || $own)
       {
         if($answerEditor === 'rich'){
-            $question_display .= "<label for='question".$id."_".$mlw_answer_total."' class='qmn_mc_answer_wrap' id='question$id-$mlw_answer_total'><div>";
+            $question_display .= "<label for='question".$id."_".$mlw_answer_total."' class='qmn_mc_answer_wrap' id='question$id-$mlw_answer_total'><div class='qmn_mc_answer_answer_border'>";
         }else{
             $question_display .= "<label for='question".$id."_".$mlw_answer_total."' class='qmn_mc_answer_wrap' id='question".$id."-".esc_attr($answer[0])."'><div class='qmn_mc_answer_answer_border'>";
         }

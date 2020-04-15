@@ -233,6 +233,7 @@
     padding: 10px 25px;
     font-size: 30px;
     color: #2aaaff;
+    text-align: left;
 }
 
 .qsm-results-page img.emoji,
@@ -275,4 +276,20 @@
 .qsm-progress-percents .percents-text {
     font-weight: bold;
     font-size: 16px;
+}
+
+.has-image .qsm_check_answer,
+.has-image .qmn_mc_answer_wrap {
+    flex: 0 0 33%;
+    max-width: 33%;
+}
+
+.has-image .qmn_mc_answer_answer_border {
+    padding: 0;
+    border-radius: 0;
+    text-align: center;
+}
+
+.has-image .qmn_mc_answer_answer_border span {
+    margin-left: 0;
 }
