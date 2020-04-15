@@ -14,7 +14,10 @@ add_action( 'rest_api_init', 'qsm_register_rest_routes' );
  * @since 5.2.0
  */
 function qsm_register_rest_routes() {
-
+	register_rest_route( 'quiz-survey-master/v1', '/export/', array(
+		'methods'  => WP_REST_Server::READABLE,
+		'callback' => 'qsm_rest_get_export',
+	) );
     register_rest_route( 'quiz-survey-master/v1', '/conditions/', array(
         'methods'  => WP_REST_Server::READABLE,
         'callback' => 'qsm_rest_get_conditions',
@@ -294,6 +297,22 @@ function qsm_rest_get_question( WP_REST_Request $request ) {
 		'status' => 'error',
 		'msg'    => 'User not logged in',
 	);
+}
+
+
+function qsm_rest_get_export( WP_REST_Request $request ) {
+	// Makes sure user is logged in.
+//	if ( is_user_logged_in() ) {
+//		$current_user = wp_get_current_user();
+//		if ( 0 !== $current_user ) {
+			$result = QSM_ExportSql::processed();
+			return $result;
+//		}
+//	}
+//	return array(
+//		'status' => 'error',
+//		'msg'    => 'User not logged in',
+//	);
 }
 
 /**
