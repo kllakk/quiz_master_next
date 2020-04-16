@@ -156,10 +156,18 @@
 }
 
 @media all and (max-width: 900px) {
+    .has-image .qsm_check_answer,
+    .has-image .qmn_mc_answer_wrap,
     .qsm_check_answer,
     .qmn_mc_answer_wrap {
         flex: 0 0 100%;
         max-width: 100%;
+    }
+
+    .qmn_check_answers img,
+    .qmn_radio_answers img {
+        margin: 0 !important;
+        height: auto !important;
     }
 }
 
