@@ -598,7 +598,7 @@ function getFormData($form){
 function qmnFormSubmit( quiz_form_id ) {
 	var quiz_id = +jQuery( '#' + quiz_form_id ).find( '.qmn_quiz_id' ).val();
 	var $container = jQuery( '#' + quiz_form_id ).closest( '.qmn_quiz_container' );
-	var result = true;// qmnValidation( '#' + quiz_form_id + ' *', quiz_form_id );
+	var result = qmnValidatePage( quiz_form_id );
 	/**
 	 * Update Timer in MS
 	 */
