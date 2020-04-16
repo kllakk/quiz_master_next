@@ -613,6 +613,7 @@ class QMNQuizManager {
         
         wp_enqueue_script('progress-bar', plugins_url('../../js/progressbar.min.js', __FILE__));
         wp_enqueue_script( 'jquery-ui-slider-js', '//code.jquery.com/ui/1.12.1/jquery-ui.js' );
+        wp_enqueue_script( 'jquery-inputmask-js', plugins_url('../../js/jquery.inputmask.min.js', __FILE__) );
         wp_enqueue_script( 'jquery-ui-slider-rtl-js', plugins_url('../../js/jquery.ui.slider-rtl.js', __FILE__) );
         wp_enqueue_style( 'jquery-ui-slider-rtl-css', plugins_url('../../css/jquery.ui.slider-rtl.css', __FILE__) );
         wp_enqueue_script( 'jqueryui-touch-js', '//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js' );        
