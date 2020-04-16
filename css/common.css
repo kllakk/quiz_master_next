@@ -223,7 +223,7 @@
 .qmn_check_answers img,
 .qmn_radio_answers img {
     margin: 0 !important;
-    height: 200px !important;
+    height: auto !important;
 }
 
 .answer-checked {
