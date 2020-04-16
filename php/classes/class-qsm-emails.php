@@ -389,7 +389,7 @@ class QSM_Emails {
 			$new_emails[] = array(
 				'conditions' => array(),
 				'content'    => $emails,
-				'subject'    => 'Результаты опроса: %QUIZ_NAME%',
+				'subject'    => '%QUIZ_NAME%',
 				'replyTo'    => false,
 			);
 
