@@ -19,6 +19,9 @@ class QSM_QuizImportExport {
 		    $quiz['quiz_author_id'] = $current_user->ID;
 		    $quiz['admin_email'] = get_option( 'admin_email', 'Enter email' );
 		    $quiz['last_activity'] = current_time( 'mysql' );
+		    $quiz['quiz_views'] = 0;
+		    $quiz['quiz_taken'] = 0;
+		    $quiz['deleted'] = 0;
 		    $quiz['quiz_settings'] = '';
 
 		    $types = array_fill(0, count($quiz), '%s');
