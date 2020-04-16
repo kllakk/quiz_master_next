@@ -305,7 +305,7 @@ function qsm_rest_get_export( WP_REST_Request $request ) {
 //	if ( is_user_logged_in() ) {
 //		$current_user = wp_get_current_user();
 //		if ( 0 !== $current_user ) {
-	$result = QSM_ExportSql::processed($request['id']);
+	$result = QSM_QuizImportExport::export($request['id']);
 	// Export the data and prompt a csv file for download
 	header('Content-Type: application/json; charset=UTF-8');
 	header("Content-Disposition: attachment; filename=export.json");

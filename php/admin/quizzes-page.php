@@ -176,11 +176,10 @@ function qsm_generate_quizzes_surveys_page() {
 					<label class="screen-reader-text" for="quiz_search"><?php esc_html_e( 'Search', 'quiz-master-next' ); ?></label>
 					<input type="search" id="quiz_search" name="quiz_search" value="">
 					<a href="#" class="button"><?php esc_html_e( 'Search', 'quiz-master-next' ); ?></a>
-                                        <?php if(class_exists('QSM_Export_Import')){ ?>
-                                            <a class="button button-primary" href="<?php echo admin_url() . 'admin.php?page=qmn_addons&tab=export-and-import'; ?>" target="_blank"><?php _e( 'Import & Export', 'quiz-master-next' ); ?></a>
-                                        <?php } else{ ?>
-                                            <a id="show_import_export_popup" href="#" style="position: relative;top: 0px;" class="add-new-h2 button-primary"><?php _e( 'Import & Export', 'quiz-master-next' ); ?></a>
-                                        <?php } ?>
+                    <label class="add-new-h2 button-primary" style="position: relative;top: 0px;" for="import-quiz-file">Импорт</label>
+                    <form style="display: none" method="post" enctype="multipart/form-data">
+                        <input type="file" id="import-quiz-file" name="import-quiz-file">
+                    </form>
 				</p>
 				<div class="tablenav top">
 					<div class="tablenav-pages">

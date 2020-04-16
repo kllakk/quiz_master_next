@@ -87,6 +87,9 @@ var QSMQuizzesSurveys;
     $( '#quiz_search' ).keyup( function() {
       QSMQuizzesSurveys.searchQuizzes( $( this ).val() );
     });
+    $( '#import-quiz-file' ).on( 'change', function( event ) {
+      $(this).closest('form').submit();
+    });
     $( '#the-list' ).on( 'click', '.qsm-action-link-delete', function( event ) {
       event.preventDefault();
       QSMQuizzesSurveys.deleteQuiz( $( this ).parents( '.qsm-quiz-row' ).data( 'id' ) );

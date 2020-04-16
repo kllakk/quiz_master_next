@@ -145,7 +145,7 @@ class MLWQuizMasterNext {
 		}
 		include 'php/classes/class-qsm-questions.php';
 		include 'php/classes/class-qsm-conditions.php';
-		include 'php/classes/class-qsm-export-sql.php';
+		include 'php/classes/class-qsm-quiz-import-export.php';
 		include 'php/classes/class-qsm-contact-manager.php';
 		include 'php/classes/class-qsm-results-pages.php';
 		include 'php/classes/class-qsm-emails.php';
@@ -308,4 +308,12 @@ class MLWQuizMasterNext {
 global $mlwQuizMasterNext;
 $mlwQuizMasterNext = new MLWQuizMasterNext();
 register_activation_hook( __FILE__, array( 'QSM_Install', 'install' ) );
+
+function import_check() {
+	if (isset($_FILES['import-quiz-file'])) {
+		QSM_QuizImportExport::import($_FILES['import-quiz-file']);
+	}
+}
+
+add_action( "plugins_loaded", 'import_check' );
 ?>
