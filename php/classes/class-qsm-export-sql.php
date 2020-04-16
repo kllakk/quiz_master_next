@@ -2,14 +2,14 @@
 
 // /wp-json/quiz-survey-master/v1/export
 class QSM_ExportSql {
-    public static function processed()
+    public static function processed($quizId)
     {
 	    global $wpdb;
 
 	    $result = array();
 
 	    foreach (array('mlw_quizzes', 'mlw_questions', 'mlw_conditions') as $table) {
-		    $data   = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}{$table}" );
+		    $data   = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}{$table} WHERE quiz_id = {$quizId}" );
 		    $columns = array();
 		    $rows   = array();
 		    foreach ( $data as $index => $item ) {
@@ -30,14 +30,6 @@ class QSM_ExportSql {
 		    );
 	    }
 
-	    // Export the data and prompt a csv file for download
-	    header('Content-Type: application/json; charset=UTF-8');
-	    header("Content-Disposition: attachment; filename=export.json");
-	    ob_end_clean();
-	    $out = fopen('php://output', 'w');
-	    fwrite($out, json_encode($result));
-	    fclose($out);
-	    ob_flush();
-	    exit();
+	    return $result;
     }
 }

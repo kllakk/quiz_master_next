@@ -14,7 +14,7 @@ add_action( 'rest_api_init', 'qsm_register_rest_routes' );
  * @since 5.2.0
  */
 function qsm_register_rest_routes() {
-	register_rest_route( 'quiz-survey-master/v1', '/export/', array(
+	register_rest_route( 'quiz-survey-master/v1', '/export/(?P<id>\d+)', array(
 		'methods'  => WP_REST_Server::READABLE,
 		'callback' => 'qsm_rest_get_export',
 	) );
@@ -305,8 +305,17 @@ function qsm_rest_get_export( WP_REST_Request $request ) {
 //	if ( is_user_logged_in() ) {
 //		$current_user = wp_get_current_user();
 //		if ( 0 !== $current_user ) {
-			$result = QSM_ExportSql::processed();
-			return $result;
+	$result = QSM_ExportSql::processed($request['id']);
+	// Export the data and prompt a csv file for download
+	header('Content-Type: application/json; charset=UTF-8');
+	header("Content-Disposition: attachment; filename=export.json");
+	ob_end_clean();
+	$out = fopen('php://output', 'w');
+	fwrite($out, json_encode($result));
+	fclose($out);
+	ob_flush();
+	exit();
+//			return $result;
 //		}
 //	}
 //	return array(

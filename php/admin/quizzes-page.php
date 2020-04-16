@@ -459,7 +459,8 @@ function qsm_generate_quizzes_surveys_page() {
                                                 <a class="qsm-action-link" href="post.php?post={{ data.postID }}&action=edit"><?php _e( 'Post Settings', 'quiz-master-next' ); ?></a> |
 						<a class="qsm-action-link qsm-action-link-duplicate" href="#"><?php _e( 'Duplicate', 'quiz-master-next' ); ?></a> |
 						<a class="qsm-action-link qsm-action-link-delete" href="#"><?php _e( 'Delete', 'quiz-master-next' ); ?></a> |
-                                                <a class="qsm-action-link" target="_blank" href="{{ data.link }}"><?php _e( 'Preview', 'quiz-master-next' ); ?></a>
+                                                <a class="qsm-action-link" target="_blank" href="{{ data.link }}"><?php _e( 'Preview', 'quiz-master-next' ); ?></a> |
+                        <a class="qsm-action-link" target="_blank" href="/wp-json/quiz-survey-master/v1/export/{{ data.id }}">Экспорт</a>
 					</div>
 				</td>
 				<td>
