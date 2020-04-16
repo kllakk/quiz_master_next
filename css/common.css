@@ -223,7 +223,7 @@
 .qmn_check_answers img,
 .qmn_radio_answers img {
     margin: 0 !important;
-    height: 200px !important;
+    height: 300px !important;
 }
 
 .answer-checked {
@@ -284,8 +284,8 @@
 
 .has-image .qsm_check_answer,
 .has-image .qmn_mc_answer_wrap {
-    flex: 0 0 33%;
-    max-width: 33%;
+    flex: 0 0 50%;
+    max-width: 50%;
 }
 
 .has-image .qmn_mc_answer_answer_border {
