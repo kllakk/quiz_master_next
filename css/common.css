@@ -223,9 +223,15 @@
     line-height: 1.5;
 }
 
+/*.has-image .qmn_check_answers p,*/
+/*.has-image .qmn_radio_answers p {*/
+/*    padding-bottom: 0 !important;*/
+/*}*/
+
 .qmn_check_answers img,
 .qmn_radio_answers img {
     margin: 0 !important;
+    height: 200px !important;
 }
 
 .answer-checked {
