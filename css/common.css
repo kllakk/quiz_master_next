@@ -224,6 +224,8 @@
 .qmn_radio_answers img {
     margin: 0 !important;
     height: auto !important;
+    max-height: 250px;
+    width: auto;
 }
 
 .answer-checked {
@@ -293,10 +295,15 @@
     padding: 0;
     border-radius: 0;
     text-align: center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .has-image .qmn_mc_answer_answer_border span {
     margin-left: 0;
+    float: none !important;
 }
 
 .quiz_section {
