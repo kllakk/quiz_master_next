@@ -1417,18 +1417,23 @@ class QMNQuizManager {
                                     $question_text = $results_array["question_text"];
                                 }
 
-                                // Save question data into new array in our array
-                                $question_data[] = apply_filters('qmn_answer_array', array(
-                                    $question_text,
-                                    htmlspecialchars($user_answer, ENT_QUOTES),
-                                    htmlspecialchars($correct_answer, ENT_QUOTES),
-                                    $comment,
-                                    "correct" => $correct_status,
-                                    "id" => $question['question_id'],
-                                    "points" => $answer_points,
-                                    "category" => $question['category'],
-                                    "question_type" => $question['question_type_new']
-                                        ), $options, $quiz_data);
+                                if (
+                                    trim($user_answer) !== '' &&
+                                    trim($user_answer) !== 'No Answer Provided'
+                                ) {
+	                                // Save question data into new array in our array
+	                                $question_data[] = apply_filters( 'qmn_answer_array', array(
+		                                $question_text,
+		                                htmlspecialchars( $user_answer, ENT_QUOTES ),
+		                                htmlspecialchars( $correct_answer, ENT_QUOTES ),
+		                                $comment,
+		                                "correct"       => $correct_status,
+		                                "id"            => $question['question_id'],
+		                                "points"        => $answer_points,
+		                                "category"      => $question['category'],
+		                                "question_type" => $question['question_type_new']
+	                                ), $options, $quiz_data );
+                                }
                             }
                             break;
                         }
