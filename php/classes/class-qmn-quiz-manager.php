@@ -903,7 +903,7 @@ class QMNQuizManager {
             </a>
             <button type='submit' class='qsm-btn qsm-submit-btn qmn_btn'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="white" d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
-                <span style="margin-left: 15px;">
+                <span style="margin-left: 8px;">
                     <?php echo esc_attr(htmlspecialchars_decode(__($options->submit_button_text, 'quiz-master-next'), ENT_QUOTES)); ?>
                 </span>
             </button>

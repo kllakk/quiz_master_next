@@ -30,6 +30,7 @@
         margin: 0 auto; /* 15% from the top and centered */
         width: 100vw; /* Could be more or less, depending on screen size */
         min-height: 100%;
+        border: 0;
     }
 }
 

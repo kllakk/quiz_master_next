@@ -477,5 +477,23 @@
 
 .qsm-pagination.last-page .qsm-submit-btn {
     font-size: 2rem !important;
-    padding: 20px 45px !important;
+    padding: 20px 20px !important;
+    max-width: 280px;
+    width: 100%;
+}
+
+@media all and (max-width: 800px) {
+    .qmn_pagination {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        padding-right: 40px;
+        padding-bottom: 20px;
+        border: 0;
+        background: linear-gradient(transparent, #fffffff7, white);
+    }
+}
+
+.quiz_section.qmn_error .form-control {
+    border-left: 1px solid #da4f49 !important;
 }
