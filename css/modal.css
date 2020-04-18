@@ -28,7 +28,7 @@
 @media all and (max-width: 800px) {
     .quiz-modal-content {
         margin: 0 auto; /* 15% from the top and centered */
-        width: 100%; /* Could be more or less, depending on screen size */
+        width: 100vw; /* Could be more or less, depending on screen size */
         min-height: 100%;
     }
 }

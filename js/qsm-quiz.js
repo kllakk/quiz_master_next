@@ -370,6 +370,12 @@ var QSM;
 			if (!results) {
 				QSM.changePage(quizID, difference);
 			} else {
+
+				$quizForm.find('.qsm-pagination').removeClass('last-page');
+				if ($pages.length == pageNumber) {
+					$quizForm.find('.qsm-pagination').addClass('last-page');
+				}
+
 				if ( '1' == qmn_quiz_data[ quizID ].progress_bar ) {
 					qmn_quiz_data[ quizID ].bar.animate( (pageNumber - 1) / $pages.length );
 					$quizForm.find('.qsm-progress-percents .percents-value').html( Math.round((pageNumber - 1) / $pages.length * 100));
@@ -909,7 +915,7 @@ function qmnSocialShare( network, mlw_qmn_social_text, mlw_qmn_title, facebook_i
 jQuery(function() {
 	jQuery( '.qmn_quiz_container' ).tooltip();
 
-	jQuery( '.phone-mask' ).inputmask("+7 (999) 999-9999");
+	jQuery( '.phone-mask' ).inputmask("(999) 999-9999");
 
 	jQuery( '.qmn_quiz_container input' ).on( 'keypress', function ( e ) {
 		if ( e.which === 13 ) {

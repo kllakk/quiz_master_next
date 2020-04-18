@@ -891,11 +891,22 @@ class QMNQuizManager {
         <!-- View for pagination -->
         <script type="text/template" id="tmpl-qsm-pagination">
             <div class="qsm-pagination qmn_pagination border">
-            <a class="qsm-btn qsm-previous qmn_btn mlw_qmn_quiz_link mlw_previous" href="#"><?php echo esc_html(__($options->previous_button_text, 'quiz-master-next')); ?></a>
+            <a class="qsm-btn qsm-previous qmn_btn mlw_qmn_quiz_link mlw_previous" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/></svg>
+                <span style="margin-left: 5px;"><?php echo esc_html(__($options->previous_button_text, 'quiz-master-next')); ?></span>
+            </a>
             <span class="qmn_page_message"></span>
             <div class="qmn_page_counter_message"></div>
-            <a class="qsm-btn qsm-next qmn_btn mlw_qmn_quiz_link mlw_next" href="#"><?php echo esc_html(__($options->next_button_text, 'quiz-master-next')); ?></a>
-            <input type='submit' class='qsm-btn qsm-submit-btn qmn_btn' value='<?php echo esc_attr(htmlspecialchars_decode(__($options->submit_button_text, 'quiz-master-next'), ENT_QUOTES)); ?>' />
+            <a class="qsm-btn qsm-next qmn_btn mlw_qmn_quiz_link mlw_next" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"><path fill="white" d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+                <span style="margin-left: 5px;"><?php echo esc_html(__($options->next_button_text, 'quiz-master-next')); ?></span>
+            </a>
+            <button type='submit' class='qsm-btn qsm-submit-btn qmn_btn'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="white" d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+                <span style="margin-left: 15px;">
+                    <?php echo esc_attr(htmlspecialchars_decode(__($options->submit_button_text, 'quiz-master-next'), ENT_QUOTES)); ?>
+                </span>
+            </button>
             </div>
         </script>
         <input type='hidden' name='qmn_question_list' value='<?php echo esc_attr($question_list); ?>' />

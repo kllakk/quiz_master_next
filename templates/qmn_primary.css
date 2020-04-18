@@ -369,7 +369,7 @@ border: 1px solid #e3e3e3;
 .qmn_quiz_container input[type="email"],
 .qmn_quiz_container input[type="number"] {
   background: #fff;
-  border: 1px solid #3498db;
+  /*border: 1px solid #3498db;*/
 }
 
 .qmn_quiz_container select:hover,
@@ -384,18 +384,20 @@ border: 1px solid #e3e3e3;
 .qmn_quiz_container input[type="number"]:focus{
   outline: 0;
   background: #fff;
-  border: 1px solid #3498db;
+  /*border: 1px solid #3498db;*/
   -webkit-box-shadow: 0 0 10px rgba(52, 152, 219, .35);
      -moz-box-shadow: 0 0 10px rgba(52, 152, 219, .35);
           box-shadow: 0 0 10px rgba(52, 152, 219, .35);
 }
 
 .qmn_quiz_container .qmn_btn, .qmn_quiz_container .btn {
-  color: #fff !important;
-  background: #3498db !important;
+  color: #fff;
+  background: #3498db;
 }
 
-.qmn_quiz_container .qmn_btn:hover, .qmn_quiz_container .btn:hover { background: #2980b9 !important; }
+.qmn_quiz_container .qmn_btn:hover, .qmn_quiz_container .btn:hover {
+    /*background: #2980b9 !important; */
+}
 
 .quiz_section.quiz_end .qsm-submit-btn {
 	display: block;
