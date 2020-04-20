@@ -32,6 +32,10 @@
         min-height: 100%;
         border: 0;
     }
+
+    iframe {
+        max-width: 100% !important;
+    }
 }
 
 /* The Close Button */
