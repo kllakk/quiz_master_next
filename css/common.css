@@ -494,6 +494,13 @@
     width: 100%;
 }
 
+.qsm-submit-btn
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @media all and (max-width: 800px) {
     .qmn_pagination {
         position: fixed;
