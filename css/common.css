@@ -511,6 +511,9 @@
         border: 0;
         background: linear-gradient(transparent, #fffffff7, white);
     }
+    .qsm_contact_div:last-of-type {
+        padding-bottom: 300px;
+    }
 }
 
 .quiz_section.qmn_error .form-control {

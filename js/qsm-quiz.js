@@ -390,6 +390,11 @@ var QSM;
 					}
 				}
 				pageCurrent.show();
+				if ($pages.length == pageNumber && $( document ).width() < 800) {
+					$quizForm.closest(".quiz-modal").animate({
+						scrollTop: $(".qsm-after-message").offset().top
+					}, 1000);
+				}
 			}
 		},
 		/**
