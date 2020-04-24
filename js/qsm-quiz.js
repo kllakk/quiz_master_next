@@ -538,6 +538,13 @@ function qmnValidation( element, quiz_form_id ) {
 			}
 			if ( localStorage.getItem( 'mlw_time_quiz' + quiz_id ) === null || localStorage.getItem( 'mlw_time_quiz'+quiz_id ) > 0.08 ) {
 
+				if( jQuery( this ).attr( 'class' ).indexOf( 'phone-mask' ) > -1 ) {
+					if (this.value.replace(/_/g, '').length < 15) {
+						qmnDisplayError(number_error, jQuery(this), quiz_form_id);
+						result = false;
+					}
+				}
+
 				if( jQuery( this ).attr( 'class' ).indexOf( 'mlwRequiredNumber' ) > -1 && this.value === "" && +this.value != NaN ) {
 					qmnDisplayError( number_error, jQuery( this ), quiz_form_id );
 					result =  false;
@@ -920,7 +927,7 @@ function qmnSocialShare( network, mlw_qmn_social_text, mlw_qmn_title, facebook_i
 jQuery(function() {
 	jQuery( '.qmn_quiz_container' ).tooltip();
 
-	jQuery( '.phone-mask' ).inputmask("(999) 999-9999");
+	jQuery( '.phone-mask' ).inputmask("(999) 999-99-99");
 
 	jQuery( '.qmn_quiz_container input' ).on( 'keypress', function ( e ) {
 		if ( e.which === 13 ) {
