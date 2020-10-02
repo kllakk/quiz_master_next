@@ -59,6 +59,13 @@ class QSM_Contact_Manager {
 			<?php
 		}
 
+        $settings = (array) get_option( 'qmn-settings' );
+
+		$smsConfirmation = false;
+        if (isset($settings['sms_confirmation']) && isset($settings['sms_service_token'])) {
+            $smsConfirmation = ($settings['sms_confirmation'] == '2' && $settings['sms_service_token']);
+        }
+
 		// Loads fields.
 		$fields = self::load_fields();
                 
@@ -150,6 +157,13 @@ class QSM_Contact_Manager {
                                         </div>
                                         <input <?php if($contact_disable_autofill){ echo "autocomplete='off'"; } ?> type='text' class='form-control <?php echo esc_attr( $class ); ?>' x-webkit-speech name='contact_field_<?php echo $i; ?>' value='<?php echo esc_attr( $value ); ?>' placeholder="<?php echo $fields[ $i ]['label']; ?>" />
                                     </div>
+                                    <?php if ($smsConfirmation) { ?>
+                                    <div class="input-group contact-group">
+                                        <input data-code-send="false"
+                                               style="display: none; max-width: 150px; margin: 15px auto 0 auto; text-align: center;" class="form-control sms-confirmation"
+                                               min="1" max="9999" type="number" name="confirmation-code" value="" placeholder="Код из СМС" />
+                                    </div>
+                                    <?php } ?>
                                     <?php
                                     break;
 								case 'name':

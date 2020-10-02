@@ -44,18 +44,22 @@ class QMNQuizManager {
         add_action('wp_ajax_qmn_process_quiz', array($this, 'ajax_submit_results'));
         add_action('wp_ajax_nopriv_qmn_process_quiz', array($this, 'ajax_submit_results'));
         add_action('wp_ajax_qsm_get_quiz_to_reload', array($this, 'qsm_get_quiz_to_reload'));
+        add_action('wp_ajax_qsm_rest_confirmation_check', array($this, 'qsm_rest_confirmation_check'));
+        add_action('wp_ajax_nopriv_qsm_rest_confirmation_check', array($this, 'qsm_rest_confirmation_check'));
+        add_action('wp_ajax_qsm_rest_confirmation_send', array($this, 'qsm_rest_confirmation_send'));
+        add_action('wp_ajax_nopriv_qsm_rest_confirmation_send', array($this, 'qsm_rest_confirmation_send'));
         add_action('wp_ajax_nopriv_qsm_get_quiz_to_reload', array($this, 'qsm_get_quiz_to_reload'));
         add_action('wp_ajax_qsm_get_question_quick_result', array($this, 'qsm_get_question_quick_result'));
         add_action('wp_ajax_nopriv_qsm_get_question_quick_result', array($this, 'qsm_get_question_quick_result'));
         //Upload file of file upload question type
         add_action('wp_ajax_qsm_upload_image_fd_question', array($this, 'qsm_upload_image_fd_question'));
-        add_action('wp_ajax_nopriv_qsm_upload_image_fd_question', array($this, 'qsm_upload_image_fd_question')); 
-        
+        add_action('wp_ajax_nopriv_qsm_upload_image_fd_question', array($this, 'qsm_upload_image_fd_question'));
+
         //remove file of file upload question type
         add_action('wp_ajax_qsm_remove_file_fd_question', array($this, 'qsm_remove_file_fd_question'));
-        add_action('wp_ajax_nopriv_qsm_remove_file_fd_question', array($this, 'qsm_remove_file_fd_question')); 
+        add_action('wp_ajax_nopriv_qsm_remove_file_fd_question', array($this, 'qsm_remove_file_fd_question'));
     }
-    
+
     /**
      * @version 6.3.7
      * Upload file to server
@@ -84,16 +88,16 @@ class QMNQuizManager {
                     $mimes[] = $value;
                 }
             }
-        }        
+        }
         $json = array();
-        if (in_array($_FILES["file"]['type'], $mimes)) {            
+        if (in_array($_FILES["file"]['type'], $mimes)) {
             if($_FILES["file"]['size'] >= $file_upload_limit * 1024 * 1024){
                 $json['type']= 'error';
                 $json['message'] = 'File is too large. File must be less than ' . $file_upload_limit . ' MB';
                 echo json_encode($json);
                 exit;
             }
-            $upload_dir = wp_upload_dir();            
+            $upload_dir = wp_upload_dir();
             $datafile = $_FILES["file"]["tmp_name"];
             $file_name = $_FILES["file"]["name"];
             $file = $upload_dir['path'] . '/' . $_FILES['productbd']['name'];
@@ -108,7 +112,7 @@ class QMNQuizManager {
                     $counter++;
                 }
             }
-            if (!move_uploaded_file($datafile, $file)) {                
+            if (!move_uploaded_file($datafile, $file)) {
                 $json['type']= 'error';
                 $json['message'] = 'File not uploaded';
                 echo json_encode($json);
@@ -126,13 +130,13 @@ class QMNQuizManager {
         }
         exit;
     }
-    
+
     /**
      * @since 6.3.7
      * Remove the uploaded image
      */
     public function qsm_remove_file_fd_question(){
-        $file_url = isset($_POST['file_url']) ? sanitize_text_field($_POST['file_url']) : '';        
+        $file_url = isset($_POST['file_url']) ? sanitize_text_field($_POST['file_url']) : '';
         if($file_url){
             wp_delete_file($file_url);
             $json['type']= 'success';
@@ -322,15 +326,15 @@ class QMNQuizManager {
         ob_start();
         if(isset($_GET['result_id']) && $_GET['result_id'] != ''){
             global $wpdb;
-            $result_unique_id = $_GET['result_id'];            
+            $result_unique_id = $_GET['result_id'];
             $query = $wpdb->prepare("SELECT result_id FROM {$wpdb->prefix}mlw_results WHERE unique_id = %s",$result_unique_id);
-            $result = $wpdb->get_row($query,ARRAY_A);            
+            $result = $wpdb->get_row($query,ARRAY_A);
             if( !empty($result) && isset($result['result_id']) ){
                 $result_id = $result['result_id'];
                 $return_display = do_shortcode( '[qsm_result id="'. $result_id .'"]' );
             }else{
                 $return_display = 'Result id is wrong!';
-            }                  
+            }
             $return_display .= ob_get_clean();
         }else{
             global $wpdb;
@@ -418,18 +422,18 @@ class QMNQuizManager {
 
             $return_display .= ob_get_clean();
             $return_display = apply_filters('qmn_end_shortcode', $return_display, $qmn_quiz_options, $qmn_array_for_variables);
-        }        
+        }
         return $return_display;
     }
-    
+
     public function shortcode_display_result($atts){
         extract(shortcode_atts(array(
-            'id' => 0,            
+            'id' => 0,
                         ), $atts));
         ob_start();
         if($id == 0){
             $id = isset($_GET['result_id']) ? $_GET['result_id'] : 0;
-        }        
+        }
         global $wpdb;
         $result_data = $wpdb->get_row("SELECT * FROM {$wpdb->prefix}mlw_results WHERE result_id = {$id}", ARRAY_A);
         $quiz_result = unserialize($result_data['quiz_results']);
@@ -589,7 +593,7 @@ class QMNQuizManager {
      * @return string The content for the quiz page section
      */
     public function display_quiz($options, $quiz_data, $question_amount) {
-        
+
         global $qmn_allowed_visit;
         global $mlwQuizMasterNext;
         $quiz_display = '';
@@ -610,16 +614,16 @@ class QMNQuizManager {
             'incorrect' => $options->incorrect_error_text,
             'empty' => $options->empty_error_text,
         );
-        
+
         wp_enqueue_script('progress-bar', plugins_url('../../js/progressbar.min.js', __FILE__));
         wp_enqueue_script( 'jquery-ui-slider-js', '//code.jquery.com/ui/1.12.1/jquery-ui.js' );
         wp_enqueue_script( 'jquery-inputmask-js', plugins_url('../../js/jquery.inputmask.min.js', __FILE__) );
         wp_enqueue_script( 'jquery-ui-slider-rtl-js', plugins_url('../../js/jquery.ui.slider-rtl.js', __FILE__) );
         wp_enqueue_style( 'jquery-ui-slider-rtl-css', plugins_url('../../css/jquery.ui.slider-rtl.css', __FILE__) );
-        wp_enqueue_script( 'jqueryui-touch-js', '//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js' );        
+        wp_enqueue_script( 'jqueryui-touch-js', '//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js' );
         wp_enqueue_script('qsm_quiz', plugins_url('../../js/qsm-quiz.js', __FILE__), array('wp-util', 'underscore', 'jquery', 'jquery-ui-tooltip', 'progress-bar'), $mlwQuizMasterNext->version);
         wp_localize_script('qsm_quiz', 'qmn_ajax_object', array('ajaxurl' => admin_url('admin-ajax.php'), 'enable_quick_result_mc' => isset($options->enable_quick_result_mc) ? $options->enable_quick_result_mc : '','enable_result_after_timer_end' => isset($options->enable_result_after_timer_end) ? $options->enable_result_after_timer_end : ''));
-        wp_enqueue_script( 'math_jax', '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML' );                
+        wp_enqueue_script( 'math_jax', '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML' );
         global $qmn_total_questions;
         $qmn_total_questions = 0;
         global $mlw_qmn_section_count;
@@ -639,10 +643,10 @@ class QMNQuizManager {
             ),
         );
         $the_query = new WP_Query($args);
-        
+
         // The Loop
-        if ($the_query->have_posts()) {            
-            while ($the_query->have_posts()) {                
+        if ($the_query->have_posts()) {
+            while ($the_query->have_posts()) {
                 $the_query->the_post();
                 $quiz_display .= get_the_post_thumbnail(get_the_ID(),'full');
             }
@@ -660,7 +664,7 @@ class QMNQuizManager {
         if (0 == $options->randomness_order && 0 == $options->question_from_total && 0 == $options->pagination && 0 !== count($pages)) {
             $quiz_display .= $this->display_pages($options, $quiz_data);
         } else {
-            // ... else, use older system.            
+            // ... else, use older system.
             $questions = $this->load_questions($quiz_data['quiz_id'], $options, true, $question_amount);
             $answers = $this->create_answer_array($questions);
             $quiz_display .= $this->display_begin_section($options, $quiz_data);
@@ -700,7 +704,7 @@ class QMNQuizManager {
     public function display_pages($options, $quiz_data) {
         global $mlwQuizMasterNext;
         global $qmn_json_data;
-        ob_start();        
+        ob_start();
         $pages = $mlwQuizMasterNext->pluginHelper->get_quiz_setting('pages', array());
         $questions = QSM_Questions::load_questions_by_pages($options->quiz_id);
         $question_list = '';
@@ -710,7 +714,7 @@ class QMNQuizManager {
         if (count($pages) > 1 && (!empty($options->message_before) || ( 0 == $options->contact_info_location && $contact_fields ) )) {
             $qmn_json_data['first_page'] = true;
             $message_before = wpautop(htmlspecialchars_decode($options->message_before, ENT_QUOTES));
-            $message_before = apply_filters('mlw_qmn_template_variable_quiz_page', $message_before, $quiz_data);            
+            $message_before = apply_filters('mlw_qmn_template_variable_quiz_page', $message_before, $quiz_data);
             ?>
             <section class="qsm-page <?php echo $animation_effect; ?>">
                 <div class="quiz_section quiz_begin">
@@ -737,7 +741,7 @@ class QMNQuizManager {
 	    <?php
 
         // If there is only one page.
-        if (1 == count($pages)) {            
+        if (1 == count($pages)) {
             ?>
             <div class="clear-fix"></div>
             <div class="qsm-progress-bar" style="display:none;"></div>
@@ -758,7 +762,7 @@ class QMNQuizManager {
                         ?>
                     </div>
                     <?php
-                }                
+                }
                 foreach ($pages[0] as $question_id) {
                     $question_list .= $question_id . 'Q';
                     $question = $questions[$question_id];
@@ -839,9 +843,9 @@ class QMNQuizManager {
                             ?>
                         </div>
                         <?php
-                    }    
+                    }
                     if($enable_pagination_quiz){
-                    ?>                    
+                    ?>
                         <span class="pages_count">
                             <?php
                             $text_c = $pages_count . ' out of ' .$total_pages_count;
@@ -973,8 +977,8 @@ class QMNQuizManager {
         $enable_pagination_quiz = isset($qmn_quiz_options->enable_pagination_quiz) && $qmn_quiz_options->enable_pagination_quiz ? $qmn_quiz_options->enable_pagination_quiz : 0;
         $pagination_optoin = $qmn_quiz_options->pagination;
         if($enable_pagination_quiz && $pagination_optoin){
-            $total_pages_count = count($qmn_quiz_questions);            
-            $total_pagination = ceil($total_pages_count / $pagination_optoin);                
+            $total_pages_count = count($qmn_quiz_questions);
+            $total_pagination = ceil($total_pages_count / $pagination_optoin);
         }
         $pages_count = 1;
         foreach ($qmn_quiz_questions as $mlw_question) {
@@ -997,7 +1001,7 @@ class QMNQuizManager {
             if (!empty($mlw_question->hints)) {
                 $question_display .= "<div title=\"" . esc_attr(htmlspecialchars_decode($mlw_question->hints, ENT_QUOTES)) . "\" class='qsm_hint mlw_qmn_hint_link'>{$qmn_quiz_options->hint_text}</div>";
                 $question_display .= "<br /><br />";
-            }           
+            }
             $question_display .= "</div>";
             $pages_count++;
         }
@@ -1103,7 +1107,7 @@ class QMNQuizManager {
     public function ajax_submit_results() {
         global $qmn_allowed_visit;
         global $mlwQuizMasterNext;
-                
+
         $qmn_allowed_visit = true;
         $quiz = intval($_POST["qmn_quiz_id"]);
         $mlwQuizMasterNext->pluginHelper->prepare_quiz($quiz);
@@ -1116,7 +1120,7 @@ class QMNQuizManager {
         );
         $post_data = array(
             'g-recaptcha-response' => isset($_POST['g-recaptcha-response']) ? sanitize_textarea_field($_POST['g-recaptcha-response']) : ''
-        );        
+        );
         if(class_exists('QSM_Recaptcha')){
             $recaptcha_data = $mlwQuizMasterNext->pluginHelper->get_quiz_setting( "recaptcha_integration_settings" );
             if(isset($recaptcha_data['enable_recaptcha']) && $recaptcha_data['enable_recaptcha'] != 'no'){
@@ -1128,12 +1132,33 @@ class QMNQuizManager {
                     ));
                     exit;
                 }
-            }            
-        }        
+            }
+        }
         echo json_encode($this->submit_results($options, $data));
         die();
     }
-    
+
+    public function qsm_rest_confirmation_send() {
+        if (isset($_POST['phone'])) {
+            $phone = $_POST['phone'];
+            $confirmation = new QSM_SmsConfirmation();
+            header('Content-Type: application/json');
+            echo json_encode($confirmation->sendConfirmationSms($phone));
+        }
+        exit;
+    }
+
+    public function qsm_rest_confirmation_check() {
+        if (isset($_POST['phone']) && isset($_POST['code'])) {
+            $phone = $_POST['phone'];
+            $code = $_POST['code'];
+            $confirmation = new QSM_SmsConfirmation();
+            header('Content-Type: application/json');
+            echo json_encode($confirmation->checkSmsConfirmationCode($phone, $code));
+        }
+        exit;
+    }
+
     /**
      * @version 6.3.2
      * Show quiz on button click

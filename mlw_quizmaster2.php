@@ -150,6 +150,8 @@ class MLWQuizMasterNext {
 		include 'php/classes/class-qsm-results-pages.php';
 		include 'php/classes/class-qsm-emails.php';
 		include 'php/classes/class-qmn-quiz-manager.php';
+		include 'php/classes/smsru/sms.ru.php';
+		include 'php/classes/class-qsm-sms-confirmation.php';
 
 		include 'php/template-variables.php';
 		include 'php/adverts-generate.php';
