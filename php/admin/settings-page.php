@@ -43,6 +43,8 @@ class QMNGlobalSettingsPage {
 	public function init() {
 		register_setting( 'qmn-settings-group', 'qmn-settings' );
 		add_settings_section( 'qmn-global-section', __( 'Main Settings', 'quiz-master-next' ), array( $this, 'global_section' ), 'qmn_global_settings' );
+        add_settings_field('require-sms-confirmation', 'СМС подтверждение телефона', array( $this, 'require_sms_confirmation_field' ), 'qmn_global_settings', 'qmn-global-section');
+        add_settings_field( 'sms-service-token', 'Ключ api_id для sms.ru', array( $this, 'sms_service_token_field' ), 'qmn_global_settings', 'qmn-global-section');
 		add_settings_field( 'usage-tracker', __( 'Allow Usage Tracking?', 'quiz-master-next' ), array( $this, 'usage_tracker_field' ), 'qmn_global_settings', 'qmn-global-section' );
 		add_settings_field( 'ip-collection', __( 'Disable collecting and storing IP addresses?', 'quiz-master-next' ), array( $this, 'ip_collection_field' ), 'qmn_global_settings', 'qmn-global-section' );
 		add_settings_field( 'cpt-search', __( 'Disable Quiz Posts From Being Searched?', 'quiz-master-next' ), array( $this, 'cpt_search_field' ), 'qmn_global_settings', 'qmn-global-section' );
@@ -231,6 +233,35 @@ class QMNGlobalSettingsPage {
 		}
 		wp_editor( $template, 'results_template', array('textarea_name' => 'qmn-settings[results_details_template]') );
 	}
+
+
+	public function require_sms_confirmation_field()
+    {
+        $settings = (array) get_option( 'qmn-settings' );
+        $sms_confirmation = '0';
+        if (isset($settings['sms_confirmation']))
+        {
+            $sms_confirmation = esc_attr( $settings['sms_confirmation'] );
+        }
+        $checked = '';
+        if ($sms_confirmation == '2')
+        {
+            $checked = " checked='checked'";
+        }
+        echo '<label class="switch">';
+        echo "<input type='checkbox' name='qmn-settings[sms_confirmation]' id='qmn-settings[sms_confirmation]' value='2'$checked /><span class='slider round'></span>";
+        echo '</label>';
+    }
+
+    public function sms_service_token_field()
+    {
+        $settings = (array) get_option( 'qmn-settings' );
+        $sms_service_token = '';
+        if ( isset( $settings['sms_service_token'] ) ) {
+            $sms_service_token = esc_attr( $settings['sms_service_token'] );
+        }
+        echo "<input type='text' name='qmn-settings[sms_service_token]' id='qmn-settings[sms_service_token]' value='$sms_service_token' />";
+    }
 
 	/**
 	 * Generates Setting Field For Usage Tracker Authorization

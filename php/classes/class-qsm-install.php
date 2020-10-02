@@ -41,6 +41,34 @@ class QSM_Install {
 
     global $mlwQuizMasterNext;
 
+    // Registers require_sms_confirmation setting
+    $field_array = array(
+      'id' => 'require_sms_confirmation',
+      'label' => 'СМС подтверждение телефона',
+      'type' => 'radio',
+      'options' => array(
+          array(
+              'label' => 'Да',
+              'value' => 1
+          ),
+          array(
+              'label' => 'Нет',
+              'value' => 0
+          )
+      ),
+      'default' => 0
+    );
+    $mlwQuizMasterNext->pluginHelper->register_quiz_setting( $field_array, 'quiz_options' );
+
+    // Registers sms_service_token setting
+    $field_array = array(
+      'id' => 'sms_service_token',
+      'label' => 'Ключ api_id для sms.ru',
+      'type' => 'text',
+      'default' => ''
+    );
+    $mlwQuizMasterNext->pluginHelper->register_quiz_setting( $field_array, 'quiz_options' );
+
     // Registers system setting
     $field_array = array(
       'id' => 'system',
@@ -945,6 +973,22 @@ class QSM_Install {
   	$condition_table_name = $wpdb->prefix . "mlw_conditions";
   	$results_table_name = $wpdb->prefix . "mlw_results";
   	$audit_table_name = $wpdb->prefix . "mlw_qm_audit_trail";
+  	$sms_codes_name = $wpdb->prefix . "mlw_sms_codes";
+
+    if( $wpdb->get_var( "SHOW TABLES LIKE '$sms_codes_name'" ) != $sms_codes_name ) {
+        $sql = "CREATE TABLE $sms_codes_name (
+  			id mediumint(9) NOT NULL AUTO_INCREMENT,
+  			code VARCHAR(20) NOT NULL,
+            phone VARCHAR(20) NOT NULL,
+            created DATETIME DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY  (id),
+            INDEX (id),
+            INDEX (phone)
+    ) $charset_collate;";
+
+      require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+      dbDelta( $sql );
+    }
 
   	if( $wpdb->get_var( "SHOW TABLES LIKE '$quiz_table_name'" ) != $quiz_table_name ) {
   		$sql = "CREATE TABLE $quiz_table_name (

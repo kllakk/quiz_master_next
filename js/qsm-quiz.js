@@ -626,38 +626,80 @@ function qmnFormSubmit( quiz_form_id ) {
 
 	if ( ! result ) { return result; }
 
+	var confirmationInput = jQuery('#' + quiz_form_id).find('[name="confirmation-code"]');
+	if (confirmationInput.length > 0) {
+		var phone = jQuery('#' + quiz_form_id).find('.contact-group .phone-mask').val();
+		if (confirmationInput.data('code-send') == false) {
+			jQuery('.contact-group input:not(.sms-confirmation)').prop( "disabled", true );
+			jQuery.ajax({
+				type: 'POST',
+				url: qmn_ajax_object.ajaxurl,
+				data: {
+					action: "qsm_rest_confirmation_send",
+					phone: phone,
+				},
+				success: function( response ){
+					confirmationInput.show();
+					confirmationInput.data('code-send', true);
+				}
+			});
+		} else if (confirmationInput.data('code-send') == true) {
+			jQuery.ajax({
+				type: 'POST',
+				url: qmn_ajax_object.ajaxurl,
+				data: {
+					action: "qsm_rest_confirmation_check",
+					phone: phone,
+					code: confirmationInput.val(),
+				},
+				success: function( response ){
+					if (response.result) {
+						qmnFormSubmitNext(quiz_id, quiz_form_id, $container, );
+					} else {
+						confirmationInput.css('outline', '2px solid red');
+						confirmationInput.css('background-color', '#ffeaea');
+					}
+				}
+			});
+		}
+	} else {
+		qmnFormSubmitNext(quiz_id, quiz_form_id, $container, );
+	}
+        
+	return false;
+}
+
+function qmnFormSubmitNext(quiz_id, quiz_form_id, $container) {
 	jQuery( '.mlw_qmn_quiz input:radio' ).attr( 'disabled', false );
 	jQuery( '.mlw_qmn_quiz input:checkbox' ).attr( 'disabled', false );
 	jQuery( '.mlw_qmn_quiz select' ).attr( 'disabled', false );
 	jQuery( '.mlw_qmn_question_comment' ).attr( 'disabled', false );
 	jQuery( '.mlw_answer_open_text' ).attr( 'disabled', false );
-        
-        //Convert serialize data into index array
-        var unindexed_array = jQuery( '#' + quiz_form_id ).serializeArray();        
-        var fd = new FormData();
-        jQuery.each(unindexed_array,function(key,input){            
-            fd.append(input.name,input.value);
-        });
-        fd.append("action", 'qmn_process_quiz');
-        
+
+	//Convert serialize data into index array
+	var unindexed_array = jQuery( '#' + quiz_form_id ).serializeArray();
+	var fd = new FormData();
+	jQuery.each(unindexed_array,function(key,input){
+		fd.append(input.name,input.value);
+	});
+	fd.append("action", 'qmn_process_quiz');
+
 	qsmEndTimeTakenTimer();
 	if ( qmn_quiz_data[quiz_id].hasOwnProperty( 'timer_limit' ) ) {
 		QSM.endTimer( quiz_id );
 	}
 	jQuery( '#' + quiz_form_id + ' input[type=submit]' ).attr( 'disabled', 'disabled' );
 	qsmDisplayLoading( $container );
-        jQuery.ajax({
-            url: qmn_ajax_object.ajaxurl,
-            data: fd,
-            contentType: false,
-            processData: false,
-            type: 'POST',
-            success: function( response ){
-                qmnDisplayResults( JSON.parse( response ), quiz_form_id, $container );
-            }
-        });
-        
-	return false;
+	jQuery.ajax({
+		url: qmn_ajax_object.ajaxurl,
+		data: fd,
+		contentType: false,
+		processData: false,
+		type: 'POST',
+		success: function( response ){
+			qmnDisplayResults( JSON.parse( response ), quiz_form_id, $container );
+		}
+	});
 }
 
 function qsmDisplayLoading( $container ) {
