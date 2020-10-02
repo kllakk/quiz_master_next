@@ -16,6 +16,10 @@ class QSM_SmsConfirmation {
         }
     }
 
+    private function phoneNormalize($phone) {
+        return '7' . preg_replace('/\D/', '', $phone);
+    }
+
     // /index.php?rest_route=/quiz-survey-master/v1/confirmation/send/79..
     // /index.php?rest_route=/quiz-survey-master/v1/confirmation/check/79../2071
     public function checkSmsConfirmationCode($phone, $code) {
@@ -29,7 +33,7 @@ class QSM_SmsConfirmation {
         if ($this->enabled) {
             $code = self::generateSmsConfirmationCode();
             if (self::setCodeDB($phone, $code)) {
-                //$result = $this->sendSmsText($phone, $code);
+                $result = $this->sendSmsText($this->phoneNormalize($phone), $code);
                 return compact('phone', 'result');
             }
         }
