@@ -654,6 +654,7 @@ function qmnFormSubmit( quiz_form_id ) {
 				},
 				success: function( response ){
 					if (response.result) {
+						jQuery('.contact-group input:not(.sms-confirmation)').prop( "disabled", false );
 						qmnFormSubmitNext(quiz_id, quiz_form_id, $container, );
 					} else {
 						confirmationInput.css('outline', '2px solid red');
