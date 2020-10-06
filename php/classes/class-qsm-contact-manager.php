@@ -159,9 +159,14 @@ class QSM_Contact_Manager {
                                     </div>
                                     <?php if ($smsConfirmation) { ?>
                                     <div class="input-group contact-group">
-                                        <input data-code-send="false"
-                                               style="display: none; max-width: 150px; margin: 15px auto 0 auto; text-align: center;" class="form-control sms-confirmation"
-                                               min="1" max="9999" type="number" name="confirmation-code" value="" placeholder="Код из СМС" />
+                                        <div class="sms-confirmation-wrapper" style="margin: 25px auto 0 auto;display: none;">
+                                            <p class="margin: 0;">
+                                                Подтвердите ваш телефон
+                                            </p>
+                                            <input data-code-send="false"
+                                                   style="max-width: 150px; margin: 8px auto 0 auto; text-align: center;" class="form-control sms-confirmation"
+                                                   type="text" name="confirmation-code" value="" placeholder="Код из СМС" />
+                                        </div>
                                     </div>
                                     <?php } ?>
                                     <?php

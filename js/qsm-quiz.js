@@ -639,7 +639,7 @@ function qmnFormSubmit( quiz_form_id ) {
 					phone: phone,
 				},
 				success: function( response ){
-					confirmationInput.show();
+					confirmationInput.closest('.sms-confirmation-wrapper').show();
 					confirmationInput.data('code-send', true);
 				}
 			});
