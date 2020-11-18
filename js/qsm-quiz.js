@@ -970,7 +970,8 @@ function qmnSocialShare( network, mlw_qmn_social_text, mlw_qmn_title, facebook_i
 jQuery(function() {
 	jQuery( '.qmn_quiz_container' ).tooltip();
 
-	jQuery( '.phone-mask' ).inputmask("(999) 999-99-99");
+	//jQuery( '.phone-mask' ).inputmask("(999) 999-99-99");
+	jQuery( '.phone-mask' ).inputmask({ regex: '\\([0-68-9]{1}[0-9]{2}\\) [0-9]{3}-[0-9]{2}-[0-9]{2}'});
 
 	jQuery( '.qmn_quiz_container input' ).on( 'keypress', function ( e ) {
 		if ( e.which === 13 ) {
