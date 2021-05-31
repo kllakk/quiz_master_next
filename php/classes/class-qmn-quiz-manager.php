@@ -735,7 +735,7 @@ class QMNQuizManager {
         }
 
 	    ?>
-        <div class="quiz_section">
+        <div class="quiz_section" quiz-redirect-after="<?= $options->redirect_link ?>">
             <div class='qsm-quiz-description mlw_qmn_quiz_description'><?php echo isset($quiz_description) ? $quiz_description : $options->quiz_name; ?></div>
         </div>
 	    <?php

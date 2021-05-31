@@ -41,6 +41,15 @@ class QSM_Install {
 
     global $mlwQuizMasterNext;
 
+    // Registers redirect_link setting
+    $field_array = array(
+      'id' => 'redirect_link',
+      'label' => 'Редирект после опроса',
+      'type' => 'text',
+      'default' => ''
+    );
+    $mlwQuizMasterNext->pluginHelper->register_quiz_setting( $field_array, 'quiz_options' );
+
     // Registers require_sms_confirmation setting
     $field_array = array(
       'id' => 'require_sms_confirmation',

@@ -677,6 +677,8 @@ function qmnFormSubmitNext(quiz_id, quiz_form_id, $container) {
 	jQuery( '.mlw_qmn_question_comment' ).attr( 'disabled', false );
 	jQuery( '.mlw_answer_open_text' ).attr( 'disabled', false );
 
+	var redirectUrl = jQuery( '[quiz-redirect-after]' ).attr('quiz-redirect-after');
+
 	//Convert serialize data into index array
 	var unindexed_array = jQuery( '#' + quiz_form_id ).serializeArray();
 	var fd = new FormData();
@@ -701,6 +703,10 @@ function qmnFormSubmitNext(quiz_id, quiz_form_id, $container) {
 			qmnDisplayResults( JSON.parse( response ), quiz_form_id, $container );
 		}
 	});
+	if (redirectUrl) {
+		window.location.href = redirectUrl;
+		//window.open(redirectUrl);
+	}
 }
 
 function qsmDisplayLoading( $container ) {

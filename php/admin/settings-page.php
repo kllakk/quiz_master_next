@@ -43,6 +43,7 @@ class QMNGlobalSettingsPage {
 	public function init() {
 		register_setting( 'qmn-settings-group', 'qmn-settings' );
 		add_settings_section( 'qmn-global-section', __( 'Main Settings', 'quiz-master-next' ), array( $this, 'global_section' ), 'qmn_global_settings' );
+        add_settings_field('redirect-link', 'Редирект после опроса', array( $this, 'redirect_link_field' ), 'qmn_global_settings', 'qmn-global-section');
         add_settings_field('require-sms-confirmation', 'СМС подтверждение телефона', array( $this, 'require_sms_confirmation_field' ), 'qmn_global_settings', 'qmn-global-section');
         add_settings_field( 'sms-service-token', 'Ключ api_id для sms.ru', array( $this, 'sms_service_token_field' ), 'qmn_global_settings', 'qmn-global-section');
 		add_settings_field( 'usage-tracker', __( 'Allow Usage Tracking?', 'quiz-master-next' ), array( $this, 'usage_tracker_field' ), 'qmn_global_settings', 'qmn-global-section' );
@@ -234,6 +235,15 @@ class QMNGlobalSettingsPage {
 		wp_editor( $template, 'results_template', array('textarea_name' => 'qmn-settings[results_details_template]') );
 	}
 
+    public function redirect_link_field()
+    {
+        $settings = (array) get_option( 'qmn-settings' );
+        $redirect_link = '';
+        if ( isset( $settings['redirect_link'] ) ) {
+            $redirect_link = esc_attr( $settings['redirect_link'] );
+        }
+        echo "<input type='text' name='qmn-settings[redirect_link]' id='qmn-settings[redirect_link]' value='$redirect_link' />";
+    }
 
 	public function require_sms_confirmation_field()
     {
