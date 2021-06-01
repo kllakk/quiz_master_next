@@ -677,7 +677,7 @@ function qmnFormSubmitNext(quiz_id, quiz_form_id, $container) {
 	jQuery( '.mlw_qmn_question_comment' ).attr( 'disabled', false );
 	jQuery( '.mlw_answer_open_text' ).attr( 'disabled', false );
 
-	var redirectUrl = jQuery( '[quiz-redirect-after]' ).attr('quiz-redirect-after');
+	var redirectUrl = jQuery( '#' + quiz_form_id + ' [quiz-redirect-after]' ).attr('quiz-redirect-after');
 
 	//Convert serialize data into index array
 	var unindexed_array = jQuery( '#' + quiz_form_id ).serializeArray();
